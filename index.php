@@ -27,6 +27,10 @@ if (isset($_GET['p'])) {
 		include("$absoluteurl"."core/admin/admin.php");
 	}
 
+	if ($_GET['p']=="about") {
+		include("$absoluteurl"."core/about/about.php");
+	}
+
 	elseif ($_GET['p']=="archive") {
 		if ($categoriesenabled == "yes") {
 
