@@ -30,6 +30,18 @@ if (isset($_GET['p'])) {
 	if ($_GET['p']=="about") {
 		include("$absoluteurl"."core/about/about.php");
 	}
+	
+	if ($_GET['p']=="what_is_this") {
+		include("$absoluteurl"."core/what_is_this/what_is_this.php");
+	}
+	
+	if ($_GET['p']=="what_else") {
+		include("$absoluteurl"."core/what_else/what_else.php");
+	}
+	
+	if ($_GET['p']=="contact_us") {
+		include("$absoluteurl"."core/contact_us/contact_us.php");
+	}
 
 	elseif ($_GET['p']=="archive") {
 		if ($categoriesenabled == "yes") {
