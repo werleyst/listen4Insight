@@ -233,6 +233,14 @@ $contentmenuhome = '<li';
 if (isset($_GET['p']) and $_GET['p'] == "home") $contentmenuhome .= ' class="active"';
 $contentmenuhome .= '><a href="?p=home">'._("Home").'</a></li>';
 
+
+//about button
+$contentmenuhome .= '<li';
+if (isset($_GET['p']) and $_GET['p'] == "about") $contentmenuhome .= ' class="active"';
+$contentmenuhome .= '><a href="?p=about">'._("About").'</a></li>';
+
+
+
 $theme_file_contents = str_replace("-----PG_MENUHOME-----", $contentmenuhome, $theme_file_contents);
 
 // end home button
