@@ -225,7 +225,7 @@ $freeboxcontent = NULL;
 
 	
 	
-#### MENU TOP
+#### MENU TOP 
 // Replace menu top (class active assigned to the active menu)
 
 //home button
@@ -239,6 +239,23 @@ $contentmenuhome .= '<li';
 if (isset($_GET['p']) and $_GET['p'] == "about") $contentmenuhome .= ' class="active"';
 $contentmenuhome .= '><a href="?p=about">'._("About").'</a></li>';
 
+
+//what is this button
+$contentmenuhome .= '<li';
+if (isset($_GET['p']) and $_GET['p'] == "whatIsThis") $contentmenuhome .= ' class="active"';
+$contentmenuhome .= '><a href="?p=whatIsThis">'._("What Is This?").'</a></li>';
+
+
+//what else button
+$contentmenuhome .= '<li';
+if (isset($_GET['p']) and $_GET['p'] == "whatElse") $contentmenuhome .= ' class="active"';
+$contentmenuhome .= '><a href="?p=whatElse">'._("What Else?").'</a></li>';
+
+
+//contact us button
+$contentmenuhome .= '<li';
+if (isset($_GET['p']) and $_GET['p'] == "contactUs") $contentmenuhome .= ' class="active"';
+$contentmenuhome .= '><a href="?p=contactUs">'._("Contact Us").'</a></li>';
 
 
 $theme_file_contents = str_replace("-----PG_MENUHOME-----", $contentmenuhome, $theme_file_contents);

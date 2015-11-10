@@ -27,19 +27,19 @@ if (isset($_GET['p'])) {
 		include("$absoluteurl"."core/admin/admin.php");
 	}
 
-	if ($_GET['p']=="about") {
+	elseif ($_GET['p']=="about") {
 		include("$absoluteurl"."core/about/about.php");
 	}
 	
-	if ($_GET['p']=="what_is_this") {
+	elseif ($_GET['p']=="whatIsThis") {
 		include("$absoluteurl"."core/what_is_this/what_is_this.php");
 	}
 	
-	if ($_GET['p']=="what_else") {
+	elseif ($_GET['p']=="whatElse") {
 		include("$absoluteurl"."core/what_else/what_else.php");
 	}
 	
-	if ($_GET['p']=="contact_us") {
+	elseif ($_GET['p']=="contactUs") {
 		include("$absoluteurl"."core/contact_us/contact_us.php");
 	}
 
