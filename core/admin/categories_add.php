@@ -118,7 +118,7 @@ if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
 	// ADD NEW CATEGORY TO DATABASE
 
 	// Create connection
-	$conn = new mysqli($servername, $username, $password);
+	$conn = new mysqli($db_servername, $db_username, $db_password);
 
 	// Check connection
 	if ($conn->connect_error) {
