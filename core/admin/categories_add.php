@@ -77,7 +77,7 @@ if ($add != NULL and $add != "all") { /// 000
 //	}
 
 
-	if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
+if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
 	$arrdesc[] .= $add; //Description
 
 	$arrid[] .= $id; // create Id
@@ -113,6 +113,21 @@ if ($add != NULL and $add != "all") { /// 000
 	fwrite($fp,$xmlfiletocreate);
 
 	fclose($fp);
+
+
+	// ADD NEW CATEGORY TO DATABASE
+
+	// Create connection
+	$conn = new mysqli($servername, $username, $password);
+
+	// Check connection
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	} 
+	echo "Connected successfully!!";
+
+
+
 
 	$PG_mainbody .= '<p>'._("New category:").' <i>'.$val.'</i></p>';
 
