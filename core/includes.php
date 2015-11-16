@@ -20,9 +20,9 @@ if (isset($_REQUEST['GLOBALS']) OR isset($_REQUEST['absoluteurl']) OR isset($_RE
 */
 
 $db_servername = "localhost";
+$db_name = "listen4_db0";
 $db_username = "listen4_user0";
-$db_password = "podcastsRcool";
-
+$db_password = "AHtQof9TWMwn";
 
 
 
