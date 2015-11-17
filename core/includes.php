@@ -25,6 +25,8 @@ $db_username = "listen4_user0";
 $db_password = "AHtQof9TWMwn";
 
 
+// End Database Credentials
+
 
 //if config.php doesn't exist, stop
 if (!file_exists("config.php")) {
