@@ -43,6 +43,10 @@ if (isset($_GET['p'])) {
 		include("$absoluteurl"."core/contact_us/contact_us.php");
 	}
 
+	elseif ($_GET['p']=="search") {
+		include("$absoluteurl"."core/search/search.php");
+	}
+
 	elseif ($_GET['p']=="archive") {
 		if ($categoriesenabled == "yes") {
 
