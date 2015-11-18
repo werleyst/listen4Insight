@@ -27,6 +27,22 @@ if (isset($_GET['p'])) {
 		include("$absoluteurl"."core/admin/admin.php");
 	}
 
+	elseif ($_GET['p']=="about") {
+		include("$absoluteurl"."core/about/about.php");
+	}
+	
+	elseif ($_GET['p']=="whatIsThis") {
+		include("$absoluteurl"."core/what_is_this/what_is_this.php");
+	}
+	
+	elseif ($_GET['p']=="whatElse") {
+		include("$absoluteurl"."core/what_else/what_else.php");
+	}
+	
+	elseif ($_GET['p']=="contactUs") {
+		include("$absoluteurl"."core/contact_us/contact_us.php");
+	}
+
 	elseif ($_GET['p']=="archive") {
 		if ($categoriesenabled == "yes") {
 

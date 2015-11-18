@@ -249,6 +249,18 @@ else $filenamechanged = $filenameWithoutExtension;
 		//// Creating xml file associated to episode
 		writeEpisodeXMLDB($thisEpisodeData,$absoluteurl,$filefullpath,$episodeXMLDBAbsPath,$filenamechanged.$filesuffix,TRUE);
 
+
+
+
+		// =========================================== SQL UPDATE NEEDED ================================================= //
+		// Uploading a new podcast, need a new podcast added to the database.
+		// Be sure to include the file name in the database, as that is what the backend uses to uniqely identify podcasts, specifically for deleting
+		// file name is equal to: $filenamechanged.$filesuffix.'.'.$fileExtension
+
+
+
+
+
 		$PG_mainbody .= "<p><b><font color=\"green\">"._("File sent")."</font></b></p>"; // If upload is successful.
 
 		########## REGENERATE FEED

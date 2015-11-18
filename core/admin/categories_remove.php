@@ -114,6 +114,38 @@ fwrite($fp,$xmlfiletocreate);
 
 fclose($fp);
 
+
+
+	// ================================================== DATABASE CALL ============================================================
+
+	// ADD NEW CATEGORY TO DATABASE
+
+	// Create connection
+	$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+	// Check connection
+	if (!$conn) {
+	    die("DB Connection failed: " . mysqli_connect_error());
+	}
+
+
+	// SQL QUERY
+	$sql = "DELETE FROM `Categories` WHERE `Categories`.`uniqueID` = '".$id."'";
+	$result = mysqli_query($conn, $sql);
+
+	if(!$result){
+
+		die("Database Error: SQL Query Failed to ");
+	}
+
+	mysqli_close($conn);
+
+	// ================================================== END DATABASE CALL ============================================================
+
+
+
+
+
 } // 001 end 
 
 else { //if category doesn't exist in the XML

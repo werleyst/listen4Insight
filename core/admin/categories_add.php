@@ -77,7 +77,7 @@ if ($add != NULL and $add != "all") { /// 000
 //	}
 
 
-	if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
+if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
 	$arrdesc[] .= $add; //Description
 
 	$arrid[] .= $id; // create Id
@@ -113,6 +113,35 @@ if ($add != NULL and $add != "all") { /// 000
 	fwrite($fp,$xmlfiletocreate);
 
 	fclose($fp);
+
+
+
+	// ================================================== DATABASE CALL ============================================================
+
+	// ADD NEW CATEGORY TO DATABASE
+
+	// Create connection
+	$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+	// Check connection
+	if (!$conn) {
+	    die("DB Connection failed: " . mysqli_connect_error());
+	}
+
+
+	// SQL QUERY
+	$sql = "INSERT INTO `listen4_db0`.`Categories` (`ID`, `Category`, `uniqueID` ) VALUES (NULL, '".$val."', '".$id."');";
+	$result = mysqli_query($conn, $sql);
+
+	if(!$result){
+
+		die("Database Error: SQL Query Failed to ");
+	}
+
+	mysqli_close($conn);
+
+	// ================================================== END DATABASE CALL ============================================================
+
 
 	$PG_mainbody .= '<p>'._("New category:").' <i>'.$val.'</i></p>';
 

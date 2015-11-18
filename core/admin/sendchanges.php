@@ -170,6 +170,19 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 		//// Creating xml file associated to episode
 		writeEpisodeXMLDB($thisEpisodeData,$absoluteurl,$filefullpath,$episodeXMLDBAbsPath,$file_ext[0],TRUE);
+
+
+
+
+		// =========================================== SQL UPDATE NEEDED ================================================= //
+		// Editing an old podcast, need to update an existing line in the database
+		// Use the file name to find which row to update. Update all columns with the variables on this page
+		// ******file name is equal to: $file
+
+
+
+
+
 						
 
 						#	$PG_mainbody .= "<p><b><font color=\"green\">"._("File")."sent</font></b></p>"; // If upload is successful.

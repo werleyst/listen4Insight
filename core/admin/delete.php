@@ -47,6 +47,11 @@ if (isset($_GET['file']) AND $_GET['file']!=NULL) {
 
 
 
+	// =========================================== SQL UPDATE NEEDED ================================================= //
+	// Deleted a podcast. Use the filename above as the unique identifier [  unlink ("$upload_dir$file.$ext"); ] to delete from database
+
+
+
 	########## REGENERATE FEED
 	//include ("$absoluteurl"."core/admin/feedgenerate.php"); //(re)generate XML feed
 	generatePodcastFeed(TRUE,NULL,FALSE); //Output in file

@@ -330,7 +330,7 @@ function displaySocialNetworkButtons($fullURL,$text_title,$fb,$tw,$gp) {
 	//TWITTER Button
 	if ($tw == TRUE) {
 		$construct_output.= '
-		<a href="https://twitter.com/share" class="twitter-share-button" data-url="'.$fullURL.'" data-text="'.$text_title.'" data-hashtags="podcastgen">Tweet</a>
+		<a href="https://twitter.com/share" class="twitter-share-button" data-url="'.$fullURL.'" data-text="'.$text_title.'" data-hashtags="Listen4Insight">Tweet</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		';
 	}
@@ -641,8 +641,8 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					//// Start constructing episode HTML output
 					
 					//Theme engine PG version >= 2.0 row-fluid
-						$resulting_episodes .= '<div class="episode">';
-						$resulting_episodes .= '<div class="span6 col-md-6 6u episodebox">'; //open the single episode DIV
+						$resulting_episodes .= '<div class="singleEpisode">';
+						$resulting_episodes .= '<div class="span6 col-md-6 6u singleEpisodebox">'; //open the single episode DIV
 			
 
 					////Title
