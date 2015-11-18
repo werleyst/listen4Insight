@@ -257,7 +257,32 @@ else $filenamechanged = $filenameWithoutExtension;
 		// Be sure to include the file name in the database, as that is what the backend uses to uniqely identify podcasts, specifically for deleting
 		// file name is equal to: $filenamechanged.$filesuffix.'.'.$fileExtension
 
+// ================================================== DATABASE CALL ============================================================
 
+	// ADD NEW CATEGORY TO DATABASE
+
+	// Create connection
+	$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+	// Check connection
+	if (!$conn) {
+	    die("DB Connection failed: " . mysqli_connect_error());
+	}
+
+
+	// SQL QUERY
+	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,'Name' , 'Title', 'date', 'Author', 'Long_Description', 'Short_Description', 'Category_ID', 'Key_Words') 
+	VALUES (Null, '".$filefullpath."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
+	$result = mysqli_query($conn, $sql);
+
+	if(!$result){
+
+		die("Database Error: SQL Query Failed to ");
+	}
+
+	mysqli_close($conn);
+
+	// ================================================== END DATABASE CALL ============================================================
 
 
 
