@@ -135,7 +135,7 @@ if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
 
 	if(!$result){
 
-		die("Database Error: SQL Query Failed to ");
+		die("Database Error: SQL Query Failed");
 	}
 
 	mysqli_close($conn);

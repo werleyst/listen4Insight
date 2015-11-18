@@ -135,7 +135,7 @@ fclose($fp);
 
 	if(!$result){
 
-		die("Database Error: SQL Query Failed to ");
+		die("Database Error: SQL Query Failed");
 	}
 
 	mysqli_close($conn);
