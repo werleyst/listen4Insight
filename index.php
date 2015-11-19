@@ -18,7 +18,7 @@ session_start();
 $PG_mainbody = NULL; //erase variable which contains episodes data
 
 ////////Search Bar///////////////
-$PG_mainbody .= '#include searchbar.html';
+include("core/search/searchbar.html");
 
 include("core/includes.php");
 
