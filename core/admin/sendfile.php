@@ -271,8 +271,8 @@ else $filenamechanged = $filenameWithoutExtension;
 
 
 	// SQL QUERY
-	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,'Name' , 'Title', 'date', 'Author', 'Long_Description', 'Short_Description', 'Category_ID', 'Key_Words') 
-	VALUES (Null, '".$filefullpath."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
+	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`)
+	VALUES (NULL, '".$filenamechanged.".".$fileExtension."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
