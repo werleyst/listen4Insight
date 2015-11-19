@@ -259,7 +259,7 @@ else $filenamechanged = $filenameWithoutExtension;
 
 // ================================================== DATABASE CALL ============================================================
 
-	// ADD NEW CATEGORY TO DATABASE
+	// ADD NEW PODCAST TO TABLE
 
 	// Create connection
 	$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
