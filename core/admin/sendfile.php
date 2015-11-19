@@ -286,7 +286,7 @@ else $filenamechanged = $filenameWithoutExtension;
 
 
 
-		$PG_mainbody .= "<p><b><font color=\"green\">"._("File sent")."</font></b></p>"; // If upload is successful.
+		$PG_mainbody .= "<p><b><font color=\"green\">"._("File Uploaded Successfully")."</font></b></p>"; // If upload is successful.
 
 		########## REGENERATE FEED
 		//include ("$absoluteurl"."core/admin/feedgenerate.php"); //(re)generate XML feed
