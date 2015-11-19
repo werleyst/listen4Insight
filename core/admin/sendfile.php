@@ -257,7 +257,7 @@ else $filenamechanged = $filenameWithoutExtension;
 		// Be sure to include the file name in the database, as that is what the backend uses to uniqely identify podcasts, specifically for deleting
 		// file name is equal to: $filenamechanged.$filesuffix.'.'.$fileExtension
 
-// ================================================== DATABASE CALL ============================================================
+	// ================================================== DATABASE CALL ============================================================
 
 	// ADD NEW PODCAST TO TABLE
 
@@ -272,7 +272,7 @@ else $filenamechanged = $filenameWithoutExtension;
 
 	// SQL QUERY
 	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`)
-	VALUES (NULL, '".$filenamechanged.".".$fileExtension."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
+	VALUES (NULL, '".$filenamechanged.$filesuffix.".".$fileExtension."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
