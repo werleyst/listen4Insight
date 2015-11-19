@@ -66,7 +66,6 @@ if (isset($_GET['file']) AND $_GET['file']!=NULL) {
 
 	// SQL QUERY
 	$sql = "DELETE FROM `listen4_db0`.`Podcasts` WHERE `Name` = '".$file.".".$ext."';";
-	echo $sql;
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
