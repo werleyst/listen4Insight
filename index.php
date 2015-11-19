@@ -17,6 +17,9 @@ session_start();
 
 $PG_mainbody = NULL; //erase variable which contains episodes data
 
+////////Search Bar///////////////
+$PG_mainbody .= '#include searchbar.html';
+
 include("core/includes.php");
 
 include("pg-cron.php"); //Act as a pseudo cron when someone visits the page
@@ -83,9 +86,6 @@ if (isset($_GET['p'])) {
      next($existingCategories);
     }	
 		$PG_mainbody .= '</ul>';
-		
-		////////Search Bar///////////////
-		$PG_mainbody .= '#include searchbar.html'
 		
 		
 		//If old themes then show also the option "All Episodes"
