@@ -84,6 +84,9 @@ if (isset($_GET['p'])) {
     }	
 		$PG_mainbody .= '</ul>';
 		
+		////////Search Bar///////////////
+		$PG_mainbody .= '#include searchbar.html'
+		
 		
 		//If old themes then show also the option "All Episodes"
 		if (!useNewThemeEngine($theme_path)) {
