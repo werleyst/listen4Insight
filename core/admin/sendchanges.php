@@ -179,6 +179,33 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 		// Use the file name to find which row to update. Update all columns with the variables on this page
 		// ******file name is equal to: $file
 
+	// ================================================== DATABASE CALL ============================================================
+
+	// UPDATE EXISITNG PODCAST
+
+	// Create connection
+	$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+	// Check connection
+	if (!$conn) {
+	    die("DB Connection failed: " . mysqli_connect_error());
+	}
+
+
+	// SQL QUERY
+	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".$title."', `Date` = NOW(), `Author` = '".$auth_name."', `Long_Description` = '".$long_description."', `Short_Description` = '".$description."', `Category_ID` = '2', `Key_Words` = '".$keywords."'
+	WHERE `Name` = '".$file."';";
+	$result = mysqli_query($conn, $sql);
+
+	if(!$result){
+
+		die("Database Error: SQL Query Failed to Update");
+	}
+
+	mysqli_close($conn);
+
+	// ================================================== END DATABASE CALL ============================================================
+
 
 
 

@@ -257,9 +257,9 @@ else $filenamechanged = $filenameWithoutExtension;
 		// Be sure to include the file name in the database, as that is what the backend uses to uniqely identify podcasts, specifically for deleting
 		// file name is equal to: $filenamechanged.$filesuffix.'.'.$fileExtension
 
-// ================================================== DATABASE CALL ============================================================
+	// ================================================== DATABASE CALL ============================================================
 
-	// ADD NEW CATEGORY TO DATABASE
+	// ADD NEW PODCAST TO TABLE
 
 	// Create connection
 	$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
@@ -272,7 +272,7 @@ else $filenamechanged = $filenameWithoutExtension;
 
 	// SQL QUERY
 	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`)
-	VALUES (NULL, '".$filenamechanged.".".$fileExtension."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
+	VALUES (NULL, '".$filenamechanged.$filesuffix.".".$fileExtension."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
@@ -286,7 +286,7 @@ else $filenamechanged = $filenameWithoutExtension;
 
 
 
-		$PG_mainbody .= "<p><b><font color=\"green\">"._("File sent")."</font></b></p>"; // If upload is successful.
+		$PG_mainbody .= "<p><b><font color=\"green\">"._("File Uploaded Successfully")."</font></b></p>"; // If upload is successful.
 
 		########## REGENERATE FEED
 		//include ("$absoluteurl"."core/admin/feedgenerate.php"); //(re)generate XML feed

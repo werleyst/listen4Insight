@@ -51,6 +51,32 @@ if (isset($_GET['file']) AND $_GET['file']!=NULL) {
 	// Deleted a podcast. Use the filename above as the unique identifier [  unlink ("$upload_dir$file.$ext"); ] to delete from database
 
 
+	// ================================================== DATABASE CALL ============================================================
+
+	// DELETE A PODCAST FROM THE TABLE
+
+	// Create connection
+	$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+	// Check connection
+	if (!$conn) {
+	    die("DB Connection failed: " . mysqli_connect_error());
+	}
+
+
+	// SQL QUERY
+	$sql = "DELETE FROM `listen4_db0`.`Podcasts` WHERE `Name` = '".$file.".".$ext."';";
+	$result = mysqli_query($conn, $sql);
+
+	if(!$result){
+
+		die("Database Error: SQL Query Failed to Update");
+	}
+
+	mysqli_close($conn);
+
+	// ================================================== END DATABASE CALL ============================================================
+
 
 	########## REGENERATE FEED
 	//include ("$absoluteurl"."core/admin/feedgenerate.php"); //(re)generate XML feed
