@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
 <!-- CSS styles for standard search box -->
 <style type="text/css">
 	#tfheader{
@@ -55,9 +51,8 @@
 <body>
 	<!-- HTML for SEARCH BAR -->
 	<div id="tfheader">
-		<form id="tfnewsearch" action="/" method="GET">
-				<input type="hidden" name="p" value="search">
-		        <input type="text" class="tftextinput" name="s" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+		<form id="tfnewsearch" method="get" action="http://www.google.com">
+		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
 		</form>
 	<div class="tfclear"></div>
 	</div>
