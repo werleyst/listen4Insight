@@ -73,7 +73,7 @@ if (isset($_FILES['userfile']) AND $_FILES['userfile']!=NULL AND isset($_POST['t
 
 		#$PG_mainbody .= "QUI: $long_description<br>lunghezza:".strlen($long_description)."<br>"; //debug
 
-		if ($long_description == NULL OR $long_description == " ") { //if user didn't input long description the long description is equal to short description
+		if ($long_description == NULL OR $long_description == "        ") { //if user didn't input long description the long description is equal to short description
 		$PG_mainbody .= "<p>"._("Long description not present (the short description will be used)")."</p>";
 		$long_description = $description;
 	}
