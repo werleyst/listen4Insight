@@ -192,14 +192,35 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 	}
 
 
+	// parse categories
+	$categoryIDs = array("","","");
+	for($i = 0;$i < 3; $i++){
+		if(isset($category[$i]) && $category[$i] != NULL && $category[$i] != ""){
+			$sql = "SELECT * FROM `listen4_db0`.`Categories` WHERE `Categories`.`uniqueID` = '".$category[$i]."';";
+			$result = mysqli_query($conn, $sql);
+			if (mysqli_num_rows($result) == 1 ) {
+			    $row = mysqli_fetch_assoc($result);
+			    $categoryIDs[$i] = $row["ID"];
+			}else{
+				die("ERROR: SQL Database contains an incorrect number of cateogry entries for this podcast. Category number ".$i."  (".$category[$i]."). Expected 1 entry, database has ".mysqli_num_rows($result).". Podcast was updated but <b>database was not updated</b>. Contact a site admin immediately to correct this issue.");
+			}
+		}
+	}// end for loop
+
+
 	// SQL QUERY
-	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".$title."', `Date` = NOW(), `Author` = '".$auth_name."', `Long_Description` = '".$long_description."', `Short_Description` = '".$description."', `Category_ID` = '2', `Key_Words` = '".$keywords."'
-	WHERE `Name` = '".$file."';";
+	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".$title."', `Date` = '".date('Y-m-d H:i:s',$oracambiata)."', `Author` = '".$auth_name."', `Long_Description` = '".$long_description."', `Short_Description` = '".$description."', `Category_ID` = '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', `Key_Words` = '".$keywords."', `Last_Modified` = NOW() WHERE `Name` = '".$file."';";
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
+		$PG_mainbody .= '<p><b style="color:red;">***WARNING***: An SQL Query failed to execute. Error message: '.mysqli_error($conn).'<br/>Constant System Admin immediately to resolve issue.</b></p>';
+	}
 
-		die("Database Error: SQL Query Failed to Update");
+
+	// ** FOR CHANGES ONLY** make sure a row was affected, warn if not.
+	$numOfRowsAffect = mysqli_affected_rows($conn);
+	if($numOfRowsAffect != 1){
+		$PG_mainbody .= '<p><b style="color:red;">***WARNING***: Database updated an incorrect number of rows. Expected to update 1 row, updated '.$numOfRowsAffect.'. A system admin must be alerted to this change for this podcast to properly function on the site.</b></p>';
 	}
 
 	mysqli_close($conn);

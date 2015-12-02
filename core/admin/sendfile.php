@@ -270,14 +270,30 @@ else $filenamechanged = $filenameWithoutExtension;
 	}
 
 
+	// parse categories
+	$categoryIDs = array("","","");
+	for($i = 0;$i < 3; $i++){
+		if(isset($category[$i]) && $category[$i] != NULL && $category[$i] != ""){
+			$sql = "SELECT * FROM `listen4_db0`.`Categories` WHERE `Categories`.`uniqueID` = '".$category[$i]."';";
+			$result = mysqli_query($conn, $sql);
+			if (mysqli_num_rows($result) == 1 ) {
+			    $row = mysqli_fetch_assoc($result);
+			    $categoryIDs[$i] = $row["ID"];
+			}else{
+				$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL Database contains an incorrect number of cateogry entries for this podcast. Category number ".$i."  (".$category[$i]."). Expected 1 entry, database has ".mysqli_num_rows($result).". Podcast was uploaded but database was not updated properly. <br/>Contact a site admin immediately to correct this issue.</font></b></p>";
+			}
+		}
+	}// end for loop
+
+
 	// SQL QUERY
-	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`)
-	VALUES (NULL, '".$filenamechanged.$filesuffix.".".$fileExtension."', '".$title."', NOW(), '".$auth_name."', '".$long_description."', '".$description."', 2, '".$keywords."' );";
+	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,`Last_Modified`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`)
+	VALUES (NULL, NOW(), '".$filenamechanged.$filesuffix.".".$fileExtension."', '".$title."', '".date('Y-m-d H:i:s',$oracambiata)."', '".$auth_name."', '".$long_description."', '".$description."', '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', '".$keywords."' );";
 	$result = mysqli_query($conn, $sql);
 
+	// Handle Errors
 	if(!$result){
-
-		die("Database Error: SQL Query Failed to ");
+		$PG_mainbody .= "<p><b><font color=\"red\">Database Error: SQL Query Failed to update. Error Message: ".mysqli_error($conn)."<br/>Podcast was uploaded, however podcast database table failed to update. <br/>Contact a System Admin immediately to resolve this issue.</font></b></p>");
 	}
 
 	mysqli_close($conn);

@@ -70,7 +70,13 @@ if (isset($_GET['file']) AND $_GET['file']!=NULL) {
 
 	if(!$result){
 
-		die("Database Error: SQL Query Failed to Update");
+		$PG_mainbody .= '<p><b style="color:red;">***WARNING***: SQL query failed to delete entry in database. Error Message: '.mysqli_error($conn).'<br/>Constant a system admin immediately to resolve this issue.</b></p>';
+	}
+
+	// ** FOR CHANGES ONLY** make sure a row was affected, warn if not.
+	$numOfRowsAffect = mysqli_affected_rows($conn);
+	if($numOfRowsAffect != 1){
+		$PG_mainbody .= '<p><b style="color:red;">***WARNING***: Database updated an incorrect number of rows. Expected to update 1 row, updated '.$numOfRowsAffect.'. A system admin must be alerted to this change for this podcast to properly function on the site.</b></p>';
 	}
 
 	mysqli_close($conn);
