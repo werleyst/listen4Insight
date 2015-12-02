@@ -642,9 +642,12 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					
 					//Theme engine PG version >= 2.0 row-fluid
 						$resulting_episodes .= '<div class="singleEpisode">';
-						$resulting_episodes .= '<div class="span6 col-md-6 6u singleEpisodebox">'; //open the single episode DIV
-			
-
+						//$resulting_episodes .= '<div class="span6 col-md-6 6u singleEpisodebox">'; //open the single episode DIV
+					
+					// === Info
+						$resulting_episodes .= '<div class="info">';
+					// === Person's Name
+						$resulting_episodes .= '<h3 class="interviewee_name">To Be Their Name</h3>';
 					////Title
 					$resulting_episodes .= '<h3 class="episode_title">'.$thisPodcastEpisodeData[0];
 					if (isItAvideo($thisPodcastEpisode[3])) $resulting_episodes .= '&nbsp;<i class="fa fa-youtube-play"></i>'; //add video icon
@@ -659,7 +662,6 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					}
 					$episodeDate = date ($dateformat, $thisEpisodeDate);
 					$resulting_episodes .= $episodeDate.'</p>';
-
 					
 					//// Edit/Delete button for logged user (i.e. admin)
 					if (isUserLogged()) { 
@@ -674,6 +676,11 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 							else if (file_exists($absoluteurl.$img_dir.$thisPodcastEpisode[5].'.png')) {
 							$resulting_episodes .= '<img class="episode_image"  src="'.$url.$img_dir.$thisPodcastEpisode[5].'.png" alt="'.$thisPodcastEpisodeData[0].'" />';
 							}
+					// === End Info
+					$resulting_episodes .= '</div>';
+
+					// === Start Description
+					$resulting_episodes .= '<div class="description">';
 
 					//// Show Long description if available, otherwise, short Description
 					if ($thisPodcastEpisodeData[2] != NULL) $resulting_episodes .= '<div>'.ampersandEntitiesConvert(htmlspecialchars_decode($thisPodcastEpisodeData[2])).'</div>';
@@ -687,9 +694,14 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					$resulting_episodes .= '</p>';
 				
 
+					// === End Description
+					$resulting_episodes .= '</div>';
+
 					////Buttons (More, Download, Watch).
 					$resulting_episodes .= showButtons($thisPodcastEpisode[5],$thisPodcastEpisode[3],$url,$upload_dir,"singleEpisode",$thisPodcastEpisode[1],$enablestreaming);
 
+					// === Start Audio Details
+					$resulting_episodes .= '<div class="audio_details">';
 					
 					////Other details (file type, duration, bitrate, frequency)					
 					//NB. read from XML DB (except file extension = $thisPodcastEpisode[3]).
@@ -705,6 +717,10 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					$resulting_episodes .= '<p class="episode_info">'.$episodeDetails.'</p>';
 
 
+					// === End Audio Details
+					$resulting_episodes .= '</div>';
+
+
 					////Playes: audio (flash/html5) and video (html5), for supported files and browsers
 					//if audio and video streaming is enabled in PG options
 					if ($enablestreaming=="yes" AND !detectMobileDevice()) { 
@@ -717,8 +733,6 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					$resulting_episodes .= attachToEpisode($thisPodcastEpisode[5],$thisPodcastEpisode[3],$thisPodcastEpisodeData[0]);
 
 
-					//Close the single episode DIV
-					$resulting_episodes .= "</div>";
 					//Close div with class row-fluid (theme based on bootstrap). Theme engine >= 2.0
 					$resulting_episodes .= "</div>"; //close class row-fluid (bootstrap)
 
