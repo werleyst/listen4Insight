@@ -207,10 +207,11 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 			        if($imageFileType == "jpg" && file_exists($target_file_without_ext.".png")){
 			        	unlink($target_file_without_ext.".png");
 			        	$PG_mainbody .= "<p><b><font color=\"green\">Deleted old png file: ".$target_file_without_ext.".png"."</font></b></p>";
-			        }
-			        if($imageFileType == "png" && file_exists($target_file_without_ext.".jpg")){
+			        }elseif($imageFileType == "png" && file_exists($target_file_without_ext.".jpg")){
 			        	unlink($target_file_without_ext.".jpg");
 			        	$PG_mainbody .= "<p><b><font color=\"green\">Deleted old jpg file: ".$target_file_without_ext.".jpg"."</font></b></p>";
+			        }else{
+			        	$PG_mainbody .= "<p><b><font color=\"green\">Overwrote old image file: ".$target_file."</font></b></p>";
 			        }
 			    } else {
 			        $PG_mainbody .= "<p><b><font color=\"red\">Warning: There was an error uploading the profile pictures.</font></b></p>";
