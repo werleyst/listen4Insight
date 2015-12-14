@@ -152,9 +152,9 @@ $PG_mainbody .= '<input type="hidden" name="userfile" value="'.$_GET['name'].'">
 
 		$PG_mainbody .= '<div class="col-md-6 importantSection"><fieldset><legend><b>Interviewee Information</b></legend>
 
-		Contact System Admin for profile picture updates<br/><br/><!-- CANT CHANGE PHOTO, TOO DIFFICULT TO IMPLEMENT RIGHT NOW<label for="ie_photo">'. ("Profile Picture (Also cover photo for podcast)").' *</label>
+		<label for="ie_photo">'. ("Add or Change Profile Picture (Also cover photo for podcast)").' *</label>
 		.jpg and .png only
-		<input name="ie_photo" id="ie_photo" type="file" accept=".png,.jpg"><br /><br />-->
+		<input name="ie_photo" id="ie_photo" type="file" accept=".png,.jpg"><br /><br />
 
 		<label for="ie_name">'. ("Interviewee Name").' </label>
 		<input name="ie_name" id="ie_name" type="text" size="50" maxlength="255" value="'.$text_ie_name.'"><br /><br />

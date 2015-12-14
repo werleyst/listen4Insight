@@ -164,6 +164,66 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 				//// RE-CREATING XML FILE ASSOCIATED TO EPISODE
 
+
+			// if they uploaded a new profile picture
+			// ============ START PROFILE PICTURE UPLOAD =================
+
+
+			if(!file_exists($_FILES["ie_photo"]["tmp_name"]) || !is_uploaded_file($_FILES["ie_photo"]["tmp_name"]) ){
+
+				$PG_mainbody .= "<p>Didn't upload a new profile picture, skipping</p>";
+			
+			}else{
+
+
+			$uploadOk = 1;
+			$imageFileType = pathinfo(basename($_FILES["ie_photo"]["name"]),PATHINFO_EXTENSION);
+			$target_file = $absoluteurl.'images/'.preg_replace('/\\.[^.\\s]{3,4}$/', '', $file) . '.'.$imageFileType;
+			$target_file_without_ext = $absoluteurl.'images/'.preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
+			// Check if image file is a actual image or fake image
+
+			    $check = getimagesize($_FILES["ie_photo"]["tmp_name"]);
+			    if($check !== false) {
+			        //echo "File is an image - " . $check["mime"] . ".";
+			        $uploadOk = 1;
+			    } else {
+			        $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image is not an image! Discarding image.</font></b></p>";
+			        $uploadOk = 0;
+			    }
+			 	//  if (file_exists($target_file)) {
+				//     $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image already exists in the media folder</font></b></p>";
+				//     $uploadOk = 0;
+				// }
+				if ($_FILES["ie_photo"]["size"] > 1900000) {
+				    $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image too large. Make less than 1.8MB. Discarding image.</font></b></p>";
+				    $uploadOk = 0;
+				}
+				if( $imageFileType != "jpg" && $imageFileType != "png" ) {
+				    $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image is not a png or a jpg. Discarding</font></b></p>";
+				    $uploadOk = 0;
+				}
+				if (move_uploaded_file($_FILES["ie_photo"]["tmp_name"], $target_file)) {
+			        $PG_mainbody .= '<p>Profile picture successfully uploaded: '.$target_file.'</p>';
+			        if($imageFileType == "jpg" && file_exists($target_file_without_ext.".png")){
+			        	unlink($target_file_without_ext.".png");
+			        	$PG_mainbody .= "<p><b><font color=\"green\">Deleted old png file: ".$target_file_without_ext.".png"."</font></b></p>";
+			        }
+			        if($imageFileType == "png" && file_exists($target_file_without_ext.".jpg")){
+			        	unlink($target_file_without_ext.".jpg");
+			        	$PG_mainbody .= "<p><b><font color=\"green\">Deleted old jpg file: ".$target_file_without_ext.".jpg"."</font></b></p>";
+			        }
+			    } else {
+			        $PG_mainbody .= "<p><b><font color=\"red\">Warning: There was an error uploading the profile pictures.</font></b></p>";
+
+			    }
+
+			}
+			
+			// ============ END PROFILE PICTURE UPLOAD =================
+
+
+
+
 				// ========== ADDED ie_name and ie_bio to updated episode data
 				$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
 		

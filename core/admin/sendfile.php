@@ -276,7 +276,7 @@ else $filenamechanged = $filenameWithoutExtension;
 			    } else {
 			        $PG_mainbody .= "<p><b><font color=\"red\">Warning: There was an error uploading the profile pictures.</font></b></p>";
 			
-			// ============ START PROFILE PICTURE UPLOAD =================
+			// ============ END PROFILE PICTURE UPLOAD =================
 
 	    // ============== Added ie_name and ie_bio to episode data
 		$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
