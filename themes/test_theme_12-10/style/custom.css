@@ -1,0 +1,191 @@
+
+/*Top Banner for all pages*/
+.title-box {
+    background-image: url("../img/background_pattern.jpeg");
+    background-repeat: repeat;
+    margin-bottom: 0px;
+
+}
+
+.mainbody{
+	padding-top: 20px;
+}
+
+#fluid-nav-bar{
+	/* make the nav bar visible when abolutely positioned */
+	z-index: 20;
+}
+
+/* Center all audio bars */
+audio{
+	margin-left:10%;
+}
+
+/* Make all apisode images round */
+.episode_image{
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	margin: 0 auto;/*ensured responsive images sized vertically are still centered*/
+}
+
+
+
+
+
+
+/* Single Episode Styles */
+.ie_name{
+	text-align: center;
+}
+
+.ie_title{
+	text-align: center;
+}
+
+.pod_title{
+	text-align: center;
+}
+
+.pod_hook{
+	text-align: center;
+}
+
+.pod_description{
+	margin-top: 8%;
+}
+
+.episode_date_author{
+	font-style: italic;
+}
+
+
+
+
+
+/* Episode list styles */
+.episodebox{
+	margin-bottom: 15px;
+}
+
+.title{
+	padding-top:10%;
+}
+
+.top-half-of-episode{
+	background-color: #AAA;
+	-webkit-border-top-left-radius: 15px;
+	-webkit-border-top-right-radius: 15px;
+	-moz-border-radius-topleft: 15px;
+	-moz-border-radius-topright: 15px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+
+
+	padding: 2.5%;
+}
+
+.bottom-half-of-episode{
+	background-color: #C41230;
+	padding-top: 2.5%;
+
+	-webkit-border-bottom-right-radius: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	border-bottom-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+
+
+	padding: 2.5%;
+}
+
+
+footer{
+	background-color: #c41230;
+	color: #FFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar.navbar-inverse.navbar-fixed-top {
+	margin: 0;
+}
+.navbar-inverse .navbar-inner {
+	background: #eee;
+	border: 0;
+}
+.navbar-inverse .navbar-inner .container-fluid {
+}
+
+.navbar .nav {
+	margin: 5px;
+}
+.navbar .nav > li {
+	margin-right: 10px;
+	border-radius: 4px;
+	box-sizing: border-box;
+	transition: all .2s linear;
+}
+.navbar .nav > li.ison{
+	border-bottom: 3px solid #c41230;
+}
+
+.navbar .nav > li:hover {
+	background: #c41230;
+}
+.navbar .nav > li:hover > p,
+.navbar .nav > li:hover > p .navbar-link,
+.navbar .nav > li:hover > a,
+.navbar .nav > li:hover > a:hover {
+	color: #eee !important;
+}
+.navbar .nav > li > p {
+	margin: 0;
+	padding: 10px 15px;
+	color: #8a8a8a;
+}
+.navbar-inverse .nav > li > a,
+.navbar-inverse .nav .ison > a,
+.navbar-inverse .nav-collapse .dropdown-menu a:hover {
+	background: transparent;
+	color: #8a8a8a;
+	text-shadow: none;
+	box-shadow: none;
+}
+.navbar-inverse .nav li.dropdown > .dropdown-toggle .caret {
+	border-top-color: #8a8a8a;
+	border-bottom-color: #8a8a8a;
+}
+.navbar-inverse .nav li.dropdown > a:hover .caret {
+	border-top-color: #8a8a8a;
+	border-bottom-color: #8a8a8a;
+}
+.navbar-inverse .navbar-link:hover,
+.navbar-inverse .nav-collapse .nav > li > a:hover,
+.navbar-inverse .nav .ison > a:hover,
+.navbar-inverse .nav .ison > a:focus {
+	color: #363636;
+	background: transparent;
+	text-shadow: none;
+	box-shadow: none;
+}
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.ison > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.open.ison > .dropdown-toggle {
+	color: #363636;
+	background: transparent;
+}

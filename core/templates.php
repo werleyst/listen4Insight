@@ -230,31 +230,31 @@ $freeboxcontent = NULL;
 
 //home button
 $contentmenuhome = '<li';
-if (isset($_GET['p']) and $_GET['p'] == "home") $contentmenuhome .= ' class="active"';
+if ((isset($_GET['p']) and $_GET['p'] == "home") or (!isset($_GET['p']) or $_GET['p'] == "") ) $contentmenuhome .= ' class="ison"';
 $contentmenuhome .= '><a href="?p=home">'._("Home").'</a></li>';
 
 
 //about button
 $contentmenuhome .= '<li';
-if (isset($_GET['p']) and $_GET['p'] == "about") $contentmenuhome .= ' class="active"';
+if (isset($_GET['p']) and $_GET['p'] == "about") $contentmenuhome .= ' class="ison"';
 $contentmenuhome .= '><a href="?p=about">'._("About").'</a></li>';
 
 
 //what is this button
 $contentmenuhome .= '<li';
-if (isset($_GET['p']) and $_GET['p'] == "whatIsThis") $contentmenuhome .= ' class="active"';
+if (isset($_GET['p']) and $_GET['p'] == "whatIsThis") $contentmenuhome .= ' class="ison"';
 $contentmenuhome .= '><a href="?p=whatIsThis">'._("What Is This?").'</a></li>';
 
 
 //what else button
 $contentmenuhome .= '<li';
-if (isset($_GET['p']) and $_GET['p'] == "whatElse") $contentmenuhome .= ' class="active"';
+if (isset($_GET['p']) and $_GET['p'] == "whatElse") $contentmenuhome .= ' class="ison"';
 $contentmenuhome .= '><a href="?p=whatElse">'._("What Else?").'</a></li>';
 
 
 //contact us button
 $contentmenuhome .= '<li';
-if (isset($_GET['p']) and $_GET['p'] == "contactUs") $contentmenuhome .= ' class="active"';
+if (isset($_GET['p']) and $_GET['p'] == "contactUs") $contentmenuhome .= ' class="ison"';
 $contentmenuhome .= '><a href="?p=contactUs">'._("Contact Us").'</a></li>';
 
 
@@ -321,7 +321,7 @@ $theme_file_contents = str_replace("-----PG_MENUARCHIVE-----", $contentmenuarchi
 
 	#FOOTER
 
-	$definefooter = _("Powered by").' <a href="http://podcastgen.sourceforge.net" title="'._("Podcast Generator")._(", an open source podcast publishing solution").'">'._("Podcast Generator").'</a>'._(", an open source podcast publishing solution");
+	//$definefooter = _("Powered by").' <a href="http://podcastgen.sourceforge.net" title="'._("Podcast Generator")._(", an open source podcast publishing solution").'">'._("Podcast Generator").'</a>'._(", an open source podcast publishing solution");
 
 	$theme_file_contents = str_replace("-----PG_FOOTER-----", $definefooter, $theme_file_contents);
 

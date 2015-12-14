@@ -55,7 +55,7 @@ if (file_exists("$absoluteurl"."categories.xml")) {
 */
 
 	$PG_mainbody .= '<label for="category">'._("Categories").' *</label>
-		<span class="alert alert-warning">'._("Select up to 3 categories for your episode...").'</span>';
+		<span>'._("Select up to 3 categories for your episode...").'</span>';
 
 	/*
 		if ($preselectcat == "yes") {

@@ -242,7 +242,44 @@ else $filenamechanged = $filenameWithoutExtension;
 			############################################
 
 
-		$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email);
+		// ====================== Adding interviewee name and bio to array ==========================
+
+			// ============ START PROFILE PICTURE UPLOAD =================
+
+			$uploadOk = 1;
+			$imageFileType = pathinfo(basename($_FILES["ie_photo"]["name"]),PATHINFO_EXTENSION);
+			$target_file = $absoluteurl.'images/'.$filenamechanged . '.'.$imageFileType;
+			// Check if image file is a actual image or fake image
+
+			    $check = getimagesize($_FILES["ie_photo"]["tmp_name"]);
+			    if($check !== false) {
+			        //echo "File is an image - " . $check["mime"] . ".";
+			        $uploadOk = 1;
+			    } else {
+			        $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image is not an image! Discarding image.</font></b></p>";
+			        $uploadOk = 0;
+			    }
+			    if (file_exists($target_file)) {
+				    $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image already exists in the media folder</font></b></p>";
+				    $uploadOk = 0;
+				}
+				if ($_FILES["ie_photo"]["size"] > 1900000) {
+				    $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image too large. Make less than 1.8MB. Discarding image.</font></b></p>";
+				    $uploadOk = 0;
+				}
+				if( $imageFileType != "jpg" && $imageFileType != "png" ) {
+				    $PG_mainbody .= "<p><b><font color=\"red\">Warning: Profile image is not a png or a jpg. Discarding</font></b></p>";
+				    $uploadOk = 0;
+				}
+				if (move_uploaded_file($_FILES["ie_photo"]["tmp_name"], $target_file)) {
+			        $PG_mainbody .= '<p>Profile picture successfully uploaded: '.$target_file.'</p>';
+			    } else {
+			        $PG_mainbody .= "<p><b><font color=\"red\">Warning: There was an error uploading the profile pictures.</font></b></p>";
+			
+			// ============ START PROFILE PICTURE UPLOAD =================
+
+	    // ============== Added ie_name and ie_bio to episode data
+		$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
 		
 		$episodeXMLDBAbsPath = $absoluteurl.$upload_dir.$filenamechanged.$filesuffix.'.xml'; // extension = XML
 
@@ -266,7 +303,7 @@ else $filenamechanged = $filenameWithoutExtension;
 
 	// Check connection
 	if (!$conn) {
-	    die("DB Connection failed: " . mysqli_connect_error());
+	    $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." </font></b></p>";
 	}
 
 
@@ -287,13 +324,13 @@ else $filenamechanged = $filenameWithoutExtension;
 
 
 	// SQL QUERY
-	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,`Last_Modified`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`)
-	VALUES (NULL, NOW(), '".$filenamechanged.$filesuffix.".".$fileExtension."', '".$title."', '".date('Y-m-d H:i:s',$oracambiata)."', '".$auth_name."', '".$long_description."', '".$description."', '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', '".$keywords."' );";
+	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,`Last_Modified`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`, `IE_Name`, `IE_Bio`, `IE_Title`)
+	VALUES (NULL, NOW(), '".$filenamechanged.$filesuffix.".".$fileExtension."', '".str_replace("'", "''", $title)."', '".date('Y-m-d H:i:s',$oracambiata)."', '".str_replace("'", "''", $auth_name)."', '".str_replace("'", "''", $long_description)."', '".str_replace("'", "''", $description)."', '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', '".str_replace("'", "''", $keywords)."', '".str_replace("'", "''", $_POST['ie_name'])."', '".str_replace("'", "''", $_POST['ie_bio'])."', '".str_replace("'", "''", $_POST['ie_title'])."' );";
 	$result = mysqli_query($conn, $sql);
 
 	// Handle Errors
 	if(!$result){
-		$PG_mainbody .= "<p><b><font color=\"red\">Database Error: SQL Query Failed to update. Error Message: ".mysqli_error($conn)."<br/>Podcast was uploaded, however podcast database table failed to update. <br/>Contact a System Admin immediately to resolve this issue.</font></b></p>");
+		$PG_mainbody .= "<p><b><font color=\"red\">Database Error: SQL Query Failed to update. Error Message: ".mysqli_error($conn)."<br/>Podcast was uploaded, however podcast database table failed to update. <br/>Contact a System Admin immediately to resolve this issue.</font></b></p>";
 	}
 
 	mysqli_close($conn);
@@ -352,7 +389,7 @@ else { //if long description is more than max characters allowed
 
 } //001 
 else { //if file, description or title not present...
-	$PG_mainbody .= '<p>'._("Error: No file, description or title present").'
+	$PG_mainbody .= '<p>'._("Error: No file, file too big, no description, or no title").'
 		<br />
 		<form>
 		<input type="button" value="&laquo; '._("Back").'" onClick="history.back()" class="btn btn-danger btn-small" />

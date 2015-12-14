@@ -18,7 +18,7 @@ session_start();
 $PG_mainbody = NULL; //erase variable which contains episodes data
 
 ////////Search Bar///////////////
-include("core/search/searchbar.html");
+//include("core/search/searchbar.html");
 
 include("core/includes.php");
 
@@ -111,11 +111,8 @@ if (isset($_GET['p'])) {
 
 	// Home page
 	else {
-	//show recent episodes (don't show all episodes) - no categories distinction
-		$PG_mainbody .= showPodcastEpisodes(0,0); //parameter, is bool yes or not (all episodes?), the second parameter is the category 
-		
-	
-	$PG_mainbody .= '<div style="clear:both;"><p><a href="'.$url.'?p=archive&amp;cat=all"><i class="fa fa-archive"></i> '._("Go to episodes archive").'</a></p></div>';
+
+		$PG_mainbody .= showHomePage();
 		
 	}
 }
@@ -133,10 +130,30 @@ elseif (isset($_GET['name'])) {
 
 // Home page (with no ?p= in GET)
 else { // if no p= specifies, e.g. just index.php with no GET
-//show recent episodes (don't show all episodes) - no categories distinction
-		$PG_mainbody .= showPodcastEpisodes(0,0); //parameter, is bool yes or not (all episodes?), the second parameter is the category 
+
+	$PG_mainbody .= showHomePage();
+
+}
+
+function showHomePage(){
+	//show recent episodes for each category
+
+	$existingCategories = readPodcastCategories ($absoluteurl);
+
+	for ($i = 0; $i <  count($existingCategories); $i++) {
+    $key=key($existingCategories);
+    $val=$existingCategories[$key];
+		if ($val<> ' ') {
+			$ret .= '<div class="clearfix"></div>';
+			$ret .= showPodcastEpisodes(0,$key); //parameter, is bool yes or not (all episodes?), the second parameter is the category 
+			$ret .= '<div class="clearfix"></div><a href="?p=archive&amp;cat='.$key.'">'.('View All Episodes in this Category').'</a>';
+		}
+     next($existingCategories);
+    }
 		
-		$PG_mainbody .= '<div style="clear:both;"><p><a href="'.$url.'?p=archive&amp;cat=all"><i class="fa fa-archive"></i> '._("Go to episodes archive").'</a></p></div>';
+	$ret .= '<div style="clear:both;"><p><a href="'.$url.'?p=archive&amp;cat=all"><i class="fa fa-archive"></i> '._("View All Episodes").'</a></p></div>';
+
+	return $ret;
 }
 
 

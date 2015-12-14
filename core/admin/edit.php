@@ -43,7 +43,7 @@ else {
 				if ($thisPodcastEpisode[0]==TRUE) { 
 
 					////Parse XML data related to the episode 
-					// NB. Function parseXMLepisodeData returns: [0] episode title, [1] short description, [2] long description, [3] image associated, [4] iTunes keywords, [5] Explicit language,[6] Author's name,[7] Author's email,[8] PG category 1, [9] PG category 2, [10] PG category 3, [11] file_info_size, [12] file_info_duration, [13] file_info_bitrate, [14] file_info_frequency
+					// NB. Function parseXMLepisodeData returns: [0] episode title, [1] short description, [2] long description, [3] image associated, [4] iTunes keywords, [5] Explicit language,[6] Author's name,[7] Author's email,[8] PG category 1, [9] PG category 2, [10] PG category 3, [11] file_info_size, [12] file_info_duration, [13] file_info_bitrate, [14] file_info_frequency, [15] interviewee name, [16] interviewee bio, [17] interviewee title
 					$thisPodcastEpisodeData = parseXMLepisodeData($thisPodcastEpisode[2]);	
 		
 
@@ -60,6 +60,10 @@ else {
 						$text_category1 = $thisPodcastEpisodeData[8];
 						$text_category2 = $thisPodcastEpisodeData[9];
 						$text_category3 = $thisPodcastEpisodeData[10];
+
+						$text_ie_name = $thisPodcastEpisodeData[15];
+						$text_ie_bio = $thisPodcastEpisodeData[16];
+						$text_ie_title = $thisPodcastEpisodeData[17];
 						
 						
 				
@@ -122,7 +126,7 @@ $PG_mainbody .= '<input type="hidden" name="userfile" value="'.$_GET['name'].'">
 							$PG_mainbody .= '
 							<br /><br />
 							<label>'._("Change the episode date").'</label>
-							<span class="alert alert-warning">'._("The episodes of your podcast are automatically sorted by date. Changing the date of this episode will change its order in the podcast feed. If you specify a date in future, your episode won't be shown till then.").'</span><br /><br />
+							<span class="">'._("The episodes of your podcast are automatically sorted by date. Changing the date of this episode will change its order in the podcast feed. If you specify a date in future, your episode won't be shown till then.").'</span><br /><br />
 							'.CreaFormData("",$episodedate,$dateformat); //dateformat is taken from config.php	
 		
 		
@@ -141,6 +145,29 @@ $PG_mainbody .= '<input type="hidden" name="userfile" value="'.$_GET['name'].'">
 				
 				$PG_mainbody .= '</fieldset>
 			</div>';
+
+
+
+		// ================================================ BEGIN NEW PODCAST INFORMATION ==================================================
+
+		$PG_mainbody .= '<div class="col-md-6 importantSection"><fieldset><legend><b>Interviewee Information</b></legend>
+
+		Contact System Admin for profile picture updates<br/><br/><!-- CANT CHANGE PHOTO, TOO DIFFICULT TO IMPLEMENT RIGHT NOW<label for="ie_photo">'. ("Profile Picture (Also cover photo for podcast)").' *</label>
+		.jpg and .png only
+		<input name="ie_photo" id="ie_photo" type="file" accept=".png,.jpg"><br /><br />-->
+
+		<label for="ie_name">'. ("Interviewee Name").' </label>
+		<input name="ie_name" id="ie_name" type="text" size="50" maxlength="255" value="'.$text_ie_name.'"><br /><br />
+
+		<label for="ie_title">'. ("Interviewee Title").' </label>
+		<input name="ie_title" id="ie_title" type="text" size="50" maxlength="255" value="'.$text_ie_title.'"><br /><br />
+
+		<label for="ie_bio">'. ("Interviewee Bio").'</label>
+		<textarea id="ie_bio" name="ie_bio" cols="50" rows="3">'.$text_ie_bio.'</textarea></fieldset></div>';
+
+
+		// ================================================ END NEW PODCAST INFORMATION ==================================================
+
 
 			
 			$PG_mainbody .= '
@@ -196,7 +223,7 @@ $PG_mainbody .= '<input type="hidden" name="userfile" value="'.$_GET['name'].'">
 
 
 				<label for="auth_name">'._("Author").'</label>
-				<span class="alert alert-warning">'._("You can specify a different author for this episode, otherwise the default author will be the podcast owner").'</span><br />
+				<span class="">'._("You can specify a different author for this episode, otherwise the default author will be the podcast owner").'</span><br />
 
 				<div class="form-inline">
 				  <div class="form-group">

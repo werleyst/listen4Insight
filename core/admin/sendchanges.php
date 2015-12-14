@@ -164,7 +164,8 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 				//// RE-CREATING XML FILE ASSOCIATED TO EPISODE
 
-				$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email);
+				// ========== ADDED ie_name and ie_bio to updated episode data
+				$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
 		
 		$episodeXMLDBAbsPath = $absoluteurl.$upload_dir.$file_ext[0].'.xml'; // extension = XML
 
@@ -188,7 +189,7 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 	// Check connection
 	if (!$conn) {
-	    die("DB Connection failed: " . mysqli_connect_error());
+	    $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." </font></b></p>";
 	}
 
 
@@ -202,14 +203,14 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 			    $row = mysqli_fetch_assoc($result);
 			    $categoryIDs[$i] = $row["ID"];
 			}else{
-				die("ERROR: SQL Database contains an incorrect number of cateogry entries for this podcast. Category number ".$i."  (".$category[$i]."). Expected 1 entry, database has ".mysqli_num_rows($result).". Podcast was updated but <b>database was not updated</b>. Contact a site admin immediately to correct this issue.");
+				$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL Database contains an incorrect number of cateogry entries for this podcast. Category number ".$i."  (".$category[$i]."). Expected 1 entry, database has ".mysqli_num_rows($result).". Podcast was updated but <b>database was not updated</b>. Contact a site admin immediately to correct this issue.</font></b></p>";
 			}
 		}
 	}// end for loop
 
 
 	// SQL QUERY
-	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".$title."', `Date` = '".date('Y-m-d H:i:s',$oracambiata)."', `Author` = '".$auth_name."', `Long_Description` = '".$long_description."', `Short_Description` = '".$description."', `Category_ID` = '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', `Key_Words` = '".$keywords."', `Last_Modified` = NOW() WHERE `Name` = '".$file."';";
+	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".str_replace("'", "''", $title)."', `Date` = '".date('Y-m-d H:i:s',$oracambiata)."', `Author` = '".str_replace("'", "''", $auth_name)."', `Long_Description` = '".str_replace("'", "''", $long_description)."', `Short_Description` = '".str_replace("'", "''", $description)."', `Category_ID` = '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', `Key_Words` = '".str_replace("'", "''", $keywords)."', `IE_Name` = '".str_replace("'", "''", $_POST['ie_name'])."', `IE_Bio` = '".str_replace("'", "''", $_POST['ie_bio'])."', `IE_Title` = '".str_replace("'", "''", $_POST['ie_title'])."', `Last_Modified` = NOW() WHERE `Name` = '".$file."';";
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
@@ -260,7 +261,7 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 						} //001 
 						else { //if file, description or title not present...
-							$PG_mainbody .= '<p>'._("Error: No file, description or title present").'
+							$PG_mainbody .= '<p>'._("Error: No file, file too big, no description, or no title").'
 								<br />
 								<form>
 								<input type="button" value="&laquo; '._("Back").'" onClick="history.back()" class="btn btn-danger btn-small" />

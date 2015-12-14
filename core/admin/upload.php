@@ -46,7 +46,7 @@ else {
 
 		$PG_mainbody .= '
 		
-		 <div class="span5 col-md-5 importantSection">
+		 <div class="col-md-6 importantSection">
 			<form action="?p=admin&amp;do=upload&amp;c=ok" method="POST" enctype="multipart/form-data" name="uploadform" id="uploadform" onsubmit="return submitForm();">
 
 			<fieldset>
@@ -66,13 +66,13 @@ else {
 			<label for="title">'._("Title").' *</label>
 			<input name="title" id="title" type="text" size="50" maxlength="255" ><br /><br />
 
-			<label for="description">'._("Short Description").' *</label>
+			<label for="description">'._("Short Description of Podcast").' *</label>
 
 			<input name="description" id="description" type="text" onKeyDown="limitText(this.form.description,this.form.countdown,255);" 
 			onKeyUp="limitText(this.form.description,this.form.countdown,255);" size="50" maxlength="255">
 			<br />
 			<span>
-			<input name="countdown" class="readonlyinput" type="text" value="255" class ="alert" size="3" readonly> '._("characters left").'</span> 
+			<input name="countdown" class="readonlyinput" type="text" value="255" class ="" size="3" readonly> '._("characters left").'</span> 
 			<br /><br />';
 
 		### INCLUDE CATEGORIES FORM
@@ -113,14 +113,42 @@ else {
 				$PG_mainbody .= '</fieldset>
 			</div>';
 
+
+
+
+
+		// ================================================ BEGIN NEW PODCAST INFORMATION ==================================================
+
+		$PG_mainbody .= '<div class="col-md-6 importantSection"><fieldset><legend><b>Interviewee Information</b></legend>
+
+		<label for="ie_photo">'. ("Profile Picture (Also cover photo for podcast)").' *</label>
+		.jpg and .png only
+		<input name="ie_photo" id="ie_photo" type="file" accept=".png,.jpg"><br /><br />
+
+		<label for="ie_name">'. ("Interviewee Name").' </label>
+		<input name="ie_name" id="ie_name" type="text" size="50" maxlength="255" ><br /><br />
+
+		<label for="ie_title">'. ("Interviewee Title").' </label>
+		<input name="ie_title" id="ie_title" type="text" size="50" maxlength="255" ><br /><br />
+
+		<label for="ie_bio">'. ("Interviewee Bio").'</label>
+		<textarea id="ie_bio" name="ie_bio" cols="50" rows="3"></textarea></fieldset></div>';
+
+
+		// ================================================ END NEW PODCAST INFORMATION ==================================================
+
+
+
+
+
 			
 			$PG_mainbody .= '
-			 <div class="span5 col-md-5">
+			 <div class="col-md-6">
 
 				<fieldset>
 				<legend><b>'._("Extras").'</b></legend>
 
-				<label for="long_description">'._("Long Description").'</label>
+				<label for="long_description">'._("Long Description of Podcast").'</label>
 				<textarea id="long_description" name="long_description" cols="50" rows="3"></textarea>
 				<br />';
 				

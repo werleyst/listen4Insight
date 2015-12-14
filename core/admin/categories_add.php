@@ -125,7 +125,7 @@ if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
 
 	// Check connection
 	if (!$conn) {
-	    die("DB Connection failed: " . mysqli_connect_error());
+	    $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." </font></b></p>";
 	}
 
 
@@ -135,7 +135,7 @@ if ($isduplicated != TRUE) { // 001 if new category doesn't exist yet
 
 	if(!$result){
 
-		die("Database Error: SQL Query Failed");
+		$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL failed to update database with categories add. Local changes processed but remote changed unreflected. Please contact a system admin immediately to resolve this issue.</font></b></p>";
 	}
 
 	mysqli_close($conn);

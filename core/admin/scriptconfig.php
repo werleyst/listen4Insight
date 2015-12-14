@@ -229,7 +229,7 @@ if(isUserLogged()) {
 
 		########## recent in home
 
-		$PG_mainbody .= '<br /><br /><p><label for="recent"><b>'._("How many recent podcasts in the home page?").'</b></label></p>
+		$PG_mainbody .= '<br /><br /><p><label for="recent"><b>'._("How many podcasts do you want to preview per category on the home page?").'</b></label></p>
 
 			<select name="recent" id="recent">
 
@@ -237,10 +237,14 @@ if(isUserLogged()) {
 		if ($max_recent == 2) { $PG_mainbody .= ' selected'; }
 		$PG_mainbody .= '>2</option>
 
+			<option value=\'3\'';
+		if ($max_recent == 3) { $PG_mainbody .= ' selected'; }
+		$PG_mainbody .= '>3</option>  
+
 			<option value=\'4\'';
 		if ($max_recent == 4) { $PG_mainbody .= ' selected'; }
-		$PG_mainbody .= '>4</option>  
-
+		$PG_mainbody .= '>4</option>
+		
 			<option value=\'6\'';
 		if ($max_recent == 6) { $PG_mainbody .= ' selected'; }
 		$PG_mainbody .= '>6</option>
@@ -248,14 +252,10 @@ if(isUserLogged()) {
 			<option value=\'8\'';
 		if ($max_recent == 8) { $PG_mainbody .= ' selected'; }
 		$PG_mainbody .= '>8</option>
-		
+
 			<option value=\'10\'';
 		if ($max_recent == 10) { $PG_mainbody .= ' selected'; }
 		$PG_mainbody .= '>10</option>
-
-			<option value=\'20\'';
-		if ($max_recent == 20) { $PG_mainbody .= ' selected'; }
-		$PG_mainbody .= '>20</option>
 			</select>
 			';
 
@@ -313,6 +313,11 @@ if(isUserLogged()) {
 			<option value=\'Y-m-d\'';
 		if ($dateformat == "Y-m-d") { $PG_mainbody .= ' selected'; }
 		$PG_mainbody .= '>'._("Year").' / '._("Month").' / '._("Day").'</option>
+
+
+		<option value=\'F n, Y\'';
+		if ($dateformat == "F n, Y") { $PG_mainbody .= ' selected'; }
+		$PG_mainbody .= '>'._("Month").' '._("Day").', '._("Year").'</option>
 
 			</select>
 			';
