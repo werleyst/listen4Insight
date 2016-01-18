@@ -93,16 +93,15 @@ $PG_mainbody .= '<input type="hidden" name="userfile" value="'.$_GET['name'].'">
 //<p><b>'.$text_title.'</b> ('.$_GET['name'].')</p>';
 
 		$PG_mainbody .= '
-			<label for="title">'._("Title").' *</label>
+			<label for="title">'._("Podcast Title/Hook").' *</label>
 			<input class="form-control" style="max-width:220px;" name="title" id="title" type="text" size="50" maxlength="255" value="'.$text_title.'" /><br /><br />
 
-			<label for="description">'._("Podcast Hook Statement").' *</label>
+			<label for="description">'._("Podcast Description").' *</label>
 
-			<input class="form-control" style="max-width:220px;" name="description" id="description" type="text" onKeyDown="limitText(this.form.description,this.form.countdown,255);" 
-			onKeyUp="limitText(this.form.description,this.form.countdown,255);" size="50" maxlength="255" value="'.$text_shortdesc.'">
-			<br />
+			<textarea class="form-control" style="max-width:220px;" name="description" id="description" type="text" maxlength="4000" cols="50" rows="3" >'.$text_shortdesc.'</textarea>
+			<!--<br />
 			<span>
-			<input name="countdown" class="readonlyinput" type="text" value="255" class ="alert" size="3" readonly> '._("characters left").'</span> 
+			<input name="countdown" class="readonlyinput" type="text" value="1000" class ="alert" size="3" readonly> '._("characters left").'</span> -->
 			<br /><br />';
 
 		
@@ -169,18 +168,18 @@ $PG_mainbody .= '<input type="hidden" name="userfile" value="'.$_GET['name'].'">
 		// ================================================ END NEW PODCAST INFORMATION ==================================================
 
 
-			
+
 			$PG_mainbody .= '
 			 <div class="span5 col-md-5">
 
 				<fieldset>
 				<legend><b>'._("Extras").'</b></legend>
 
-				<label for="long_description">'._("Long Description").'</label>
-				<textarea id="long_description" name="long_description" cols="50" rows="3">'.$text_longdesc.'</textarea>
+				<label for="transcript">'._("Podcast Transcript").'</label>
+				<textarea id="transcript" name="transcript" cols="50" rows="6" maxlength="50000">'.$text_longdesc.'</textarea>
 				<br />';
-				
-		
+
+
 //UPLOAD IMAGE ASSOCIATED TO EACH EPISODE
 //Disabled for the moment (does it really work in the podcast feed?
 //better to upload images in the WYSIWYG editor in future

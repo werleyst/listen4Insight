@@ -34,7 +34,7 @@ if (isset($_POST['userfile']) AND $_POST['userfile']!=NULL AND isset($_POST['tit
 	$category = NULL;
 	}
 
-	$long_description = $_POST['long_description'];
+	$transcript = $_POST['transcript'];
 
 	$keywords = $_POST['keywords'];
 
@@ -55,33 +55,38 @@ if (isset($_POST['userfile']) AND $_POST['userfile']!=NULL AND isset($_POST['tit
 	## here I check lenght of long description: according to the iTunes technical specifications
 	## the itunes:summary field can be up to 4000 characters, while the other fields up to 255
 
-	$longdescmax =4000; #set max characters variable. iTunes specifications by Apple say "max 4000 characters" for long description field
+	$transcriptMax = 50000; #set max characters variable.
+	$descMax = 4000;
 
-	if (strlen($long_description)<$longdescmax) { // 002 (if long description IS NOT too long, go on executing...
+	if (strlen($transcript)<$transcriptMax) { // 002 (if long description IS NOT too long, go on executing...
 		####
 
 
 		#### INPUT DEPURATION
 		$title = depurateContent($title); //title
 		$description = depurateContent($description); //short desc
-		$long_description = depurateContent($long_description); //long desc
+		$transcript = depurateContent($transcript); //long desc
 		$keywords = depurateContent($keywords); //Keywords
 		$auth_name = depurateContent($auth_name); //author's name
 
 		##############
 		### processing Long Description
 
-		#$PG_mainbody .= "QUI: $long_description<br>lunghezza:".strlen($long_description)."<br>"; //debug
+		#$PG_mainbody .= "QUI: $transcript<br>lunghezza:".strlen($transcript)."<br>"; //debug
 
-		if ($long_description == NULL OR $long_description == " ") { //if user didn't input long description the long description is equal to short description
-		$PG_mainbody .= "<p>"._("Long description not present; I'll use short description...")."</p>";
-		$long_description = $description;
-	}
+		if ($transcript == NULL OR $transcript == "        ") { //if user didn't input long description the long description is equal to short description
+			$PG_mainbody .= "<p><b><font color=\"red\">"._("Transcript is not present. Please add a transcript in the future by editing this podcast.")."</font></b></p>";
+			//$transcript = $description;
+		}
 
-	else {
-		$PG_mainbody .= "<p>"._("Long Description present")."</p>";
-		$long_description = str_replace("&nbsp;", " ", $long_description); 
-	}
+		if ($description == NULL OR $description == "        ") { //if user didn't input long description the long description is equal to short description
+			$PG_mainbody .= "<p><b><font color=\"red\">"._("Description is not present. Please add a description in the future by editing this podcast.")."</font></b></p>";
+		}
+
+		else {
+			$PG_mainbody .= "<p>"._("Transcript is present")."</p>";
+			$transcript = str_replace("&nbsp;", " ", $transcript); 
+		}
 
 	##############
 	### processing iTunes KEYWORDS
@@ -226,7 +231,7 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 
 				// ========== ADDED ie_name and ie_bio to updated episode data
-				$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
+				$thisEpisodeData = array($title,$description,$transcript,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
 		
 		$episodeXMLDBAbsPath = $absoluteurl.$upload_dir.$file_ext[0].'.xml'; // extension = XML
 
@@ -250,7 +255,7 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 	// Check connection
 	if (!$conn) {
-	    $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." </font></b></p>";
+	    $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." <br/>Contact a System Admin.</font></b></p>";
 	}
 
 
@@ -264,14 +269,14 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 			    $row = mysqli_fetch_assoc($result);
 			    $categoryIDs[$i] = $row["ID"];
 			}else{
-				$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL Database contains an incorrect number of cateogry entries for this podcast. Category number ".$i."  (".$category[$i]."). Expected 1 entry, database has ".mysqli_num_rows($result).". Podcast was updated but <b>database was not updated</b>. Contact a site admin immediately to correct this issue.</font></b></p>";
+				$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL Database contains an incorrect number of category entries for this podcast. Category number ".$i."  (".$category[$i]."). Expected 1 entry, database has ".mysqli_num_rows($result).". Podcast was updated but <b>database was not updated</b>. Contact a site admin immediately to correct this issue.</font></b></p>";
 			}
 		}
 	}// end for loop
 
 
 	// SQL QUERY
-	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".str_replace("'", "''", $title)."', `Date` = '".date('Y-m-d H:i:s',$oracambiata)."', `Author` = '".str_replace("'", "''", $auth_name)."', `Long_Description` = '".str_replace("'", "''", $long_description)."', `Short_Description` = '".str_replace("'", "''", $description)."', `Category_ID` = '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', `Key_Words` = '".str_replace("'", "''", $keywords)."', `IE_Name` = '".str_replace("'", "''", $_POST['ie_name'])."', `IE_Bio` = '".str_replace("'", "''", $_POST['ie_bio'])."', `IE_Title` = '".str_replace("'", "''", $_POST['ie_title'])."', `Last_Modified` = NOW() WHERE `Name` = '".$file."';";
+	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".str_replace("'", "''", $title)."', `Date` = '".date('Y-m-d H:i:s',$oracambiata)."', `Author` = '".str_replace("'", "''", $auth_name)."', `Transcript` = '".str_replace("'", "''", $transcript)."', `Description` = '".str_replace("'", "''", $description)."', `Category_ID` = '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', `Key_Words` = '".str_replace("'", "''", $keywords)."', `IE_Name` = '".str_replace("'", "''", $_POST['ie_name'])."', `IE_Bio` = '".str_replace("'", "''", $_POST['ie_bio'])."', `IE_Title` = '".str_replace("'", "''", $_POST['ie_title'])."', `Last_Modified` = NOW() WHERE `Name` = '".$file."';";
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
@@ -312,7 +317,7 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 							} // 002
 							else { //if long description is more than max characters allowed
 
-								$PG_mainbody .= "<b>"._("Long Description")."toolong</b><p>"._("Long Description")."maxchar $longdescmax "._("characters")." - "._("Actual Length")." <font color=red>".strlen($long_description)."</font> "._("characters").".</p>
+								$PG_mainbody .= "<b>"._("Long Description")."toolong</b><p>"._("Long Description")."maxchar $longdescmax "._("characters")." - "._("Actual Length")." <font color=red>".strlen($transcript)."</font> "._("characters").".</p>
 									<form>
 									<INPUT TYPE=\"button\" VALUE=\""._("Back")."\" onClick=\"history.back()\">
 									</form>";

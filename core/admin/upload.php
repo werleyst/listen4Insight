@@ -63,16 +63,15 @@ else {
 		}
 
 		$PG_mainbody .= '<br /><br />
-			<label for="title">'._("Title").' *</label>
+			<label for="title">'._("Podcast Title/Hook").' *</label>
 			<input name="title" id="title" type="text" size="50" maxlength="255" ><br /><br />
 
-			<label for="description">'._("Podcast Hook Statement").' *</label>
+			<label for="description">'._("Podcast Description").' *</label>
 
-			<input name="description" id="description" type="text" onKeyDown="limitText(this.form.description,this.form.countdown,255);" 
-			onKeyUp="limitText(this.form.description,this.form.countdown,255);" size="50" maxlength="255">
-			<br />
+			<textarea name="description" id="description" type="text" maxlength="4000" cols="50" rows="3"></textarea>
+			<!--<br />
 			<span>
-			<input name="countdown" class="readonlyinput" type="text" value="255" class ="" size="3" readonly> '._("characters left").'</span> 
+			<input name="countdown" class="readonlyinput" type="text" value="4000" class ="" size="3" readonly> '._("characters left").'</span> -->
 			<br /><br />';
 
 		### INCLUDE CATEGORIES FORM
@@ -148,8 +147,8 @@ else {
 				<fieldset>
 				<legend><b>'._("Extras").'</b></legend>
 
-				<label for="long_description">'._("Long Description of Podcast").'</label>
-				<textarea id="long_description" name="long_description" cols="50" rows="3"></textarea>
+				<label for="transcript">'._("Transcript of Podcast").'</label>
+				<textarea id="transcript" name="transcript" cols="50" rows="6" maxlength="50000"></textarea>
 				<br />';
 				
 		

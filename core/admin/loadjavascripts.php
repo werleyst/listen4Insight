@@ -59,7 +59,7 @@ $(document).ready(
 		<script>
 		tinymce.init({
 		
-			selector:"#long_description",
+			selector:"#description",
 			extended_valid_elements : "gcse:search",
 			custom_elements : "gcse:search,~gcse:search",
 			entity_encoding : "raw",

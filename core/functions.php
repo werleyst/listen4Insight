@@ -493,14 +493,23 @@ function showPodcastEpisodes($all,$category) {
 
 					$resulting_episodes .= '</div><div class="col-xs-8 person-title-container">';
 
-					////Title
-					$resulting_episodes .= '<h3 class="person_title"><a href="?name='.$thisPodcastEpisode[5].'.'.$thisPodcastEpisode[3].'">'.$thisPodcastEpisodeData[15];
+					$resulting_episodes .= '<a href="?name='.$thisPodcastEpisode[5].'.'.$thisPodcastEpisode[3].'">';
 
-					$resulting_episodes .= '</a></h3>';
+					////Interviewee
+					$resulting_episodes .= '<h3 class="person_title">'.$thisPodcastEpisodeData[15].'</h3>';
+
+					$resulting_episodes .= '</a>';
 
 					$resulting_episodes .= '</div></div>';
 
-					$resulting_episodes .= '<div class="episode-title-contianer">'.$thisPodcastEpisodeData[0].'</div>';
+					$resulting_episodes .= '<div class="podcast-title-container">';
+
+					////Title/Hook
+					$resulting_episodes .= '<h4 class="episode-title-hook">'.$thisPodcastEpisodeData[0].'</h4>';
+
+					$resulting_episodes .= '</div>';
+
+
 
 					////Date
 					// $resulting_episodes .= '<p class="episode_date">';
@@ -542,10 +551,10 @@ function showPodcastEpisodes($all,$category) {
 					$isvideo = FALSE; //RESET isvideo for next episode
 
 
-					//// Short Description
-					$resulting_episodes .= '<p>'.$thisPodcastEpisodeData[1].'</p>';
+					//// Long Description
+					//$resulting_episodes .= '<p>'.$thisPodcastEpisodeData[1].'</p>';
 					
-					////Social networks and (eventual) embedded code
+					////Social networks and (eventual) embedded code (very slow if many podcasts on the same screen)
 					//$resulting_episodes .= attachToEpisode($thisPodcastEpisode[5],$thisPodcastEpisode[3],$thisPodcastEpisodeData[0]);
 
 					
@@ -700,13 +709,9 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					$resulting_episodes .= '<div class="col-sm-7 col-lg-6 pod_info">';
 
 
-					////Title
-					$resulting_episodes .= '<h1 class="pod_title">'.$thisPodcastEpisodeData[0];
+					////Title/Hook
+					$resulting_episodes .= '<h1 class="pod_title_hook">'.$thisPodcastEpisodeData[0];
 					$resulting_episodes .= '</h1>';
-
-					////Hook
-					$resulting_episodes .= '<h2 class="pod_hook">'.$thisPodcastEpisodeData[1];
-					$resulting_episodes .= '</h2>';
 					
 					
 					//// Edit/Delete button for logged user (i.e. admin)
@@ -727,11 +732,23 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 
 
 					// === Start Description
-					$resulting_episodes .= '<div class="pod_description">';
+					$resulting_episodes .= '<div class="pod_description_block">';
 
-					//// Show Long description if available, otherwise, short Description
-					if ($thisPodcastEpisodeData[2] != NULL) $resulting_episodes .= '<div>'.ampersandEntitiesConvert(htmlspecialchars_decode($thisPodcastEpisodeData[2])).'</div>';
-					else $resulting_episodes .= '<p>'.$thisPodcastEpisodeData[1].'</p>';
+					//// Show "Long description" (actually the short description)
+					$resulting_episodes .= '<p class="pod_description">'.ampersandEntitiesConvert(htmlspecialchars_decode($thisPodcastEpisodeData[1])).'</p>';
+
+
+
+					//// Insert Transcript
+					$resulting_episodes .= '<button type="button" class="btn btn-default" id="transcript_toggle">Display Transcript <span class="glyphicon glyphicon-menu-down"></span></button>';
+
+					$resulting_episodes .= '<p id="podcast_transcript" style="display:none;">'.nl2br($thisPodcastEpisodeData[2]).'</p>';
+
+					$resulting_episodes .= '<script type="text/javascript">$(document).ready(function(){
+						    $("#transcript_toggle").click(function(){
+						        $("#podcast_transcript").slideToggle();
+						    });
+						});</script>';
 
 
 
@@ -761,7 +778,7 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					$resulting_episodes .= '</p>';
 				
 
-					// === End Description
+					// === End Description Block
 					$resulting_episodes .= '</div>';
 
 

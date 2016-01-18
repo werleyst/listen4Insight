@@ -109,10 +109,10 @@ if (isset($_GET['p'])) {
 		include("$absoluteurl"."core/ftpfeature.php");
 	}
 
-	// Home page
+	// Home page default of p is set
 	else {
 
-		$PG_mainbody .= showHomePage();
+		include("$absoluteurl"."core/home/home.php");
 		
 	}
 }
@@ -131,30 +131,11 @@ elseif (isset($_GET['name'])) {
 // Home page (with no ?p= in GET)
 else { // if no p= specifies, e.g. just index.php with no GET
 
-	$PG_mainbody .= showHomePage();
+	include("$absoluteurl"."core/home/home.php");
 
 }
 
-function showHomePage(){
-	//show recent episodes for each category
 
-	$existingCategories = readPodcastCategories ($absoluteurl);
-
-	for ($i = 0; $i <  count($existingCategories); $i++) {
-    $key=key($existingCategories);
-    $val=$existingCategories[$key];
-		if ($val<> ' ') {
-			$ret .= '<div class="clearfix"></div>';
-			$ret .= showPodcastEpisodes(0,$key); //parameter, is bool yes or not (all episodes?), the second parameter is the category 
-			$ret .= '<div class="clearfix"></div><a href="?p=archive&amp;cat='.$key.'">'.('View All Episodes in this Category').'</a>';
-		}
-     next($existingCategories);
-    }
-		
-	$ret .= '<div style="clear:both;"><p><a href="'.$url.'?p=archive&amp;cat=all"><i class="fa fa-archive"></i> '._("View All Episodes").'</a></p></div>';
-
-	return $ret;
-}
 
 
 

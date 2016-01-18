@@ -32,7 +32,7 @@ if (isset($_FILES['userfile']) AND $_FILES['userfile']!=NULL AND isset($_POST['t
 
 	if (isset($_POST['category']) AND $_POST['category'] != NULL) $category = $_POST['category'];
 
-	$long_description = $_POST['long_description'];
+	$transcript = $_POST['transcript'];
 
 	$keywords = $_POST['keywords'];
 
@@ -55,33 +55,34 @@ if (isset($_FILES['userfile']) AND $_FILES['userfile']!=NULL AND isset($_POST['t
 	## here I check lenght of long description: according to the iTunes technical specifications
 	## the itunes:summary field can be up to 4000 characters, while the other fields up to 255
 
-	$longdescmax = 4000; #set max characters variable. iTunes specifications by Apple say "max 4000 characters" for long description field
+	$transcriptMax = 50000; #set max characters variable.
+	$descMax = 4000;
 
-	if (strlen($long_description)<$longdescmax) { // 002 (if long description IS NOT too long, go on executing...
+	if (strlen($transcript)<$transcriptMax && strlen($description)<$descMax) { // 002 (if long description IS NOT too long, go on executing...
 		####
 
 
 		#### INPUT DEPURATION
 		$title = depurateContent($title); //title
 		$description = depurateContent($description); //short desc
-		$long_description = depurateContent($long_description); //long desc
+		$transcript = depurateContent($transcript); //long desc
 		$keywords = depurateContent($keywords); //Keywords
 		$auth_name = depurateContent($auth_name); //author's name
 
 		##############
 		### processing Long Description
 
-		#$PG_mainbody .= "QUI: $long_description<br>lunghezza:".strlen($long_description)."<br>"; //debug
+		#$PG_mainbody .= "QUI: $transcript<br>lunghezza:".strlen($transcript)."<br>"; //debug
 
-		if ($long_description == NULL OR $long_description == "        ") { //if user didn't input long description the long description is equal to short description
-		$PG_mainbody .= "<p>"._("Long description not present (the short description will be used)")."</p>";
-		$long_description = $description;
-	}
+		if ($transcript == NULL OR $transcript == "        ") { //if user didn't input long description the long description is equal to short description
+			$PG_mainbody .= "<p><b><font color=\"red\">"._("Transcript is not present. Please add a transcript in the future by editing this podcast.")."</font></b></p>";
+			//$transcript = $description;
+		}
 
-	else {
-		$PG_mainbody .= "<p>"._("Long Description present")."</p>";
-		$long_description = str_replace("&nbsp;", " ", $long_description); 
-	}
+		else {
+			$PG_mainbody .= "<p>"._("Transcript is present")."</p>";
+			$transcript = str_replace("&nbsp;", " ", $transcript); 
+		}
 
 	##############
 	### processing iTunes KEYWORDS
@@ -125,7 +126,7 @@ $auth_email = NULL; //ignore email
 
 
 #show submitted data (debug purposes)
-//$PG_mainbody .= "Dati inseriti:</b><br><br>Titolo: <i>$title</i> <br>Descrizione breve: <i>$description</i> <br>Descrizione lunga: <i>$long_description</i>";
+//$PG_mainbody .= "Dati inseriti:</b><br><br>Titolo: <i>$title</i> <br>Descrizione breve: <i>$description</i> <br>Descrizione lunga: <i>$transcript</i>";
 ###
 
 
@@ -275,11 +276,13 @@ else $filenamechanged = $filenameWithoutExtension;
 			        $PG_mainbody .= '<p>Profile picture successfully uploaded: '.$target_file.'</p>';
 			    } else {
 			        $PG_mainbody .= "<p><b><font color=\"red\">Warning: There was an error uploading the profile pictures.</font></b></p>";
+
+			    }
 			
 			// ============ END PROFILE PICTURE UPLOAD =================
 
 	    // ============== Added ie_name and ie_bio to episode data
-		$thisEpisodeData = array($title,$description,$long_description,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
+		$thisEpisodeData = array($title,$description,$transcript,$image_new_name,$category,$keywords,$explicit,$auth_name,$auth_email, $_POST['ie_name'], $_POST['ie_bio'], $_POST['ie_title']);
 		
 		$episodeXMLDBAbsPath = $absoluteurl.$upload_dir.$filenamechanged.$filesuffix.'.xml'; // extension = XML
 
@@ -324,8 +327,8 @@ else $filenamechanged = $filenameWithoutExtension;
 
 
 	// SQL QUERY
-	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,`Last_Modified`, `Name`, `Title`, `Date`, `Author`, `Long_Description`, `Short_Description`, `Category_ID`, `Key_Words`, `IE_Name`, `IE_Bio`, `IE_Title`)
-	VALUES (NULL, NOW(), '".$filenamechanged.$filesuffix.".".$fileExtension."', '".str_replace("'", "''", $title)."', '".date('Y-m-d H:i:s',$oracambiata)."', '".str_replace("'", "''", $auth_name)."', '".str_replace("'", "''", $long_description)."', '".str_replace("'", "''", $description)."', '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', '".str_replace("'", "''", $keywords)."', '".str_replace("'", "''", $_POST['ie_name'])."', '".str_replace("'", "''", $_POST['ie_bio'])."', '".str_replace("'", "''", $_POST['ie_title'])."' );";
+	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,`Last_Modified`, `Name`, `Title`, `Date`, `Author`, `Transcript`, `Description`, `Category_ID`, `Key_Words`, `IE_Name`, `IE_Bio`, `IE_Title`)
+	VALUES (NULL, NOW(), '".$filenamechanged.$filesuffix.".".$fileExtension."', '".str_replace("'", "''", $title)."', '".date('Y-m-d H:i:s',$oracambiata)."', '".str_replace("'", "''", $auth_name)."', '".str_replace("'", "''", $transcript)."', '".str_replace("'", "''", $description)."', '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', '".str_replace("'", "''", $keywords)."', '".str_replace("'", "''", $_POST['ie_name'])."', '".str_replace("'", "''", $_POST['ie_bio'])."', '".str_replace("'", "''", $_POST['ie_title'])."' );";
 	$result = mysqli_query($conn, $sql);
 
 	// Handle Errors
@@ -379,7 +382,13 @@ else {
 } // 002
 else { //if long description is more than max characters allowed
 
-	$PG_mainbody .= "<b>"._("Long Description")."toolong</b><p>"._("Long Description")."maxchar $longdescmax "._("characters")." - "._("Actual Length")." <font color=red>".strlen($long_description)."</font> "._("characters").".</p>";
+	if($transcriptMax < strlen($transcript))
+		$PG_mainbody .= "<b>"._("Transcript")." too long</b><p>"._("Transcript")." maxchar: $transcriptMax "._("characters")." - "._("Actual Length:")." <font color=red>".strlen($transcript)."</font> "._("characters").".</p>";
+
+	if($descMax < strlen($description))
+		$PG_mainbody .= "<b>"._("Description")." too long</b><p>"._("Description")." maxchar: $descMax "._("characters")." - "._("Actual Length:")." <font color=red>".strlen($description)."</font> "._("characters").".</p>";
+
+
 		$PG_mainbody .= '<form>
 		<input type="button" value="'._("Back").'" class="btn btn-danger btn-small" onClick=\"history.back()\">
 		</form>';
