@@ -51,5 +51,10 @@
 				<li>Daniel Siegel </li>
 			</ul>
 		</li>
+		<li><a href="http://miamioh.edu/miamideas/">Miami Ideas</a>
+			<ul>
+				<li>Miami Ideas Webpage</li>
+			</ul>
+		</li>
 	</ul></div>';
 ?>
