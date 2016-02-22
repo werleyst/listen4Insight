@@ -327,8 +327,8 @@ else $filenamechanged = $filenameWithoutExtension;
 
 
 	// SQL QUERY
-	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,`Last_Modified`, `Name`, `Title`, `Date`, `Author`, `Transcript`, `Description`, `Category_ID`, `Key_Words`, `IE_Name`, `IE_Bio`, `IE_Title`)
-	VALUES (NULL, NOW(), '".$filenamechanged.$filesuffix.".".$fileExtension."', '".str_replace("'", "''", $title)."', '".date('Y-m-d H:i:s',$oracambiata)."', '".str_replace("'", "''", $auth_name)."', '".str_replace("'", "''", $transcript)."', '".str_replace("'", "''", $description)."', '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', '".str_replace("'", "''", $keywords)."', '".str_replace("'", "''", $_POST['ie_name'])."', '".str_replace("'", "''", $_POST['ie_bio'])."', '".str_replace("'", "''", $_POST['ie_title'])."' );";
+	$sql = "INSERT INTO `listen4_db0`.`Podcasts` (`ID`,`Last_Modified`, `Name`, `Title`, `Date`, `Author`, `Transcript`, `Description`, `Category_ID`, `Key_Words`, `IE_Name`, `IE_Bio`, `IE_Title`, `Hook`)
+	VALUES (NULL, NOW(), '".$filenamechanged.$filesuffix.".".$fileExtension."', '".str_replace("'", "''", $title)."', '".date('Y-m-d H:i:s',$oracambiata)."', '".str_replace("'", "''", $auth_name)."', '".str_replace("'", "''", $transcript)."', '".str_replace("'", "''", $description)."', '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', '".str_replace("'", "''", $keywords)."', '".str_replace("'", "''", $_POST['ie_name'])."', '".str_replace("'", "''", $_POST['ie_bio'])."', '".str_replace("'", "''", $_POST['ie_title'])."', '".$_REQUEST['hook']."' );";
 	$result = mysqli_query($conn, $sql);
 
 	// Handle Errors

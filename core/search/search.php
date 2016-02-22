@@ -26,7 +26,7 @@ if(!isset($_REQUEST['s']) || !isset($_REQUEST['p']) || strtolower($_GET['p'])!="
 
 
 	// === Database Columns to Search ===
-	$search_columns = array("Title", "Transcript","Description", "Key_Words", "IE_Name", "IE_Bio", "Author");
+	$search_columns = array("Title", "Hook", "Transcript","Description", "Key_Words", "IE_Name", "IE_Bio", "Author");
 
 
 

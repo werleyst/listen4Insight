@@ -63,8 +63,11 @@ else {
 		}
 
 		$PG_mainbody .= '<br /><br />
-			<label for="title">'._("Podcast Title/Hook").' *</label>
+			<label for="title">'._("Podcast Title").' *</label>
 			<input name="title" id="title" type="text" size="50" maxlength="255" ><br /><br />
+
+			<label for="hook">'._("Podcast Hook").' *</label>
+			<input name="hook" id="hook" type="text" size="50" maxlength="255" ><br /><br />
 
 			<label for="description">'._("Podcast Description").' *</label>
 

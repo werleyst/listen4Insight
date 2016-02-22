@@ -64,6 +64,28 @@ else {
 						$text_ie_name = $thisPodcastEpisodeData[15];
 						$text_ie_bio = $thisPodcastEpisodeData[16];
 						$text_ie_title = $thisPodcastEpisodeData[17];
+
+
+						// SQL CALL TO GET HOOK OUT OF DATABASE
+
+						// Create connection
+						$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+						// Check connection
+						if (!$conn) {
+						    $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." Contact System Admin.</font></b></p>";
+						}
+
+						$sql = "SELECT * FROM Podcasts WHERE Name = '".$singleEpisode."'";
+
+						$result = mysqli_query($conn, $sql);
+
+						if(!$result || mysqli_num_rows($result) != 1) {
+							$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL Query error on hook statement. Contact System Admin. </font></b></p>";
+						}
+
+						$row = mysqli_fetch_assoc($result);
+						$text_hook = $row['Hook'];
 						
 						
 				
@@ -93,8 +115,11 @@ $PG_mainbody .= '<input type="hidden" name="userfile" value="'.$_GET['name'].'">
 //<p><b>'.$text_title.'</b> ('.$_GET['name'].')</p>';
 
 		$PG_mainbody .= '
-			<label for="title">'._("Podcast Title/Hook").' *</label>
+			<label for="title">'._("Podcast Title").' *</label>
 			<input class="form-control" style="max-width:220px;" name="title" id="title" type="text" size="50" maxlength="255" value="'.$text_title.'" /><br /><br />
+
+			<label for="hook">'._("Podcast Hook").' *</label>
+			<input class="form-control" style="max-width:220px;" name="hook" id="hook" type="text" size="50" maxlength="255" value="'.$text_hook.'" /><br /><br />
 
 			<label for="description">'._("Podcast Description").' *</label>
 

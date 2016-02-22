@@ -459,6 +459,29 @@ function showPodcastEpisodes($all,$category) {
 					}
 
 					//// Start constructing episode HTML output
+
+					// SQL CALL TO GET HOOK OUT OF DATABASE
+
+					// Create connection
+					$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+					// Check connection
+					// if (!$conn) {
+					//     $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." Contact System Admin.</font></b></p>";
+					// }
+
+					$sql = "SELECT * FROM Podcasts WHERE Name = '".urlencode($thisPodcastEpisode[5]).'.'.$thisPodcastEpisode[3]."'";
+
+					$result = mysqli_query($conn, $sql);
+
+					// if(!$result || mysqli_num_rows($result) != 1) {
+					// 	$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL Query error on hook statement. Contact System Admin. </font></b></p>";
+					// }
+
+					$row = mysqli_fetch_assoc($result);
+					$hook = $row['Hook'];
+
+
 					
 					//Theme engine PG version >= 2.0
 					if (useNewThemeEngine($theme_path)) {
@@ -499,6 +522,9 @@ function showPodcastEpisodes($all,$category) {
 					$resulting_episodes .= '<h3 class="person_title">'.$thisPodcastEpisodeData[15].'</h3>';
 
 					$resulting_episodes .= '</a>';
+
+					////Hook
+					$resulting_episodes .= '<h4 class="hook">'.$hook.'</h4>';
 
 					$resulting_episodes .= '</div></div>';
 
@@ -645,6 +671,33 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 
 			$resulting_episodes = NULL; //declare the 1st time and then reset
 
+
+
+				//// Hook
+				// SQL CALL TO GET HOOK OUT OF DATABASE
+
+					// Create connection
+					$conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
+
+					// Check connection
+					// if (!$conn) {
+					//     $PG_mainbody .= "<p><b><font color=\"red\">ERROR: Fatal Error. Failed to connect to database. Error Code: ".mysqli_connect_error()." Contact System Admin.</font></b></p>";
+					// }
+
+					$sql = "SELECT * FROM Podcasts WHERE Name = '".$_REQUEST['name']."'";
+
+					$result = mysqli_query($conn, $sql);
+
+					// if(!$result || mysqli_num_rows($result) != 1) {
+					// 	$PG_mainbody .= "<p><b><font color=\"red\">ERROR: SQL Query error on hook statement. Contact System Admin. </font></b></p>";
+					// }
+
+					$row = mysqli_fetch_assoc($result);
+					$hook = $row['Hook'];
+
+
+
+
 				////Validate the current episode
 				//NB. validateSingleEpisode returns [0] episode is supported (bool), [1] Episode Absolute path, [2] Episode XML DB absolute path,[3] File Extension (Type), [4] File MimeType, [5] File name without extension, [6] episode file supported but to XML present
 				
@@ -709,10 +762,13 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					$resulting_episodes .= '<div class="col-sm-7 col-lg-6 pod_info">';
 
 
-					////Title/Hook
-					$resulting_episodes .= '<h1 class="pod_title_hook">'.$thisPodcastEpisodeData[0];
+					////Title
+					$resulting_episodes .= '<h1 class="pod_title">'.$thisPodcastEpisodeData[0];
 					$resulting_episodes .= '</h1>';
-					
+
+
+					/// Hook
+					$resulting_episodes .= '<h3 class="pod_hook">'.$hook.'</h3>';
 					
 					//// Edit/Delete button for logged user (i.e. admin)
 					if (isUserLogged()) { 

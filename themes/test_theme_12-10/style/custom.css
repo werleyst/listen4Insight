@@ -1,3 +1,8 @@
+body{
+	color: #000;
+}
+
+
 
 /*Top Banner for all pages*/
 .title-box {
@@ -9,6 +14,7 @@
 
 .mainbody{
 	padding-top: 20px;
+	color:#000;
 }
 
 #fluid-nav-bar{
@@ -37,18 +43,27 @@ audio{
 /* Single Episode Styles */
 .ie_name{
 	text-align: center;
+	color: #C41230;
 }
 
 .ie_title{
 	text-align: center;
+	color: #C41230;
+}
+
+.ie_bio{
+	color: #FFF;
+	background-color: #AAA;
 }
 
 .pod_title{
 	text-align: center;
+	color: #C41230;
 }
 
 .pod_hook{
 	text-align: center;
+	color: #C41230;
 }
 
 .pod_description{
@@ -100,19 +115,75 @@ audio{
 	padding: 2.5%;
 }
 
-
+/*Footer Styles*/
 footer{
 	background-color: #c41230;
-	color: #FFF;
+	color: #000;
 }
 
+.footer img {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2.5%;
+}
+
+.socialLogos i{
+	margin-left: 2%;
+}
+
+.socialLogos a{
+	color: #000;
+}
+
+.socialLogos p {
+    font-size: 33%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 75%;
+}
+
+.socialLogos{
+	color: #000;
+    font-size: 200%;
+}
+
+.socialLinks{
+	width: 40%;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.hometext img{
+	width: 90%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
+.hometext p{
+	font-size: 140%;
+	margin-top: 5%
+}
+/**/
 
 
 
+.whatisthis h1{
+	text-align: center;
+}
 
+.whatisthis p{
+	font-size: 140%;
+	margin-bottom: 6%;
+	margin-top: 3%;
+	padding-right: 2%;
 
-
-
+}
 
 
 
@@ -123,22 +194,27 @@ footer{
 
 .navbar.navbar-inverse.navbar-fixed-top {
 	margin: 0;
+	color:#000;
 }
 .navbar-inverse .navbar-inner {
 	background: #eee;
 	border: 0;
+	color:#000;
 }
 .navbar-inverse .navbar-inner .container-fluid {
+	color: #000;
 }
 
 .navbar .nav {
 	margin: 5px;
+	color: #000;
 }
 .navbar .nav > li {
 	margin-right: 10px;
 	border-radius: 4px;
 	box-sizing: border-box;
 	transition: all .2s linear;
+	color: #000;
 }
 .navbar .nav > li.ison{
 	border-bottom: 3px solid #c41230;
@@ -146,39 +222,40 @@ footer{
 
 .navbar .nav > li:hover {
 	background: #c41230;
+
 }
 .navbar .nav > li:hover > p,
 .navbar .nav > li:hover > p .navbar-link,
 .navbar .nav > li:hover > a,
 .navbar .nav > li:hover > a:hover {
-	color: #eee !important;
+	color: #000 !important;
 }
 .navbar .nav > li > p {
 	margin: 0;
 	padding: 10px 15px;
-	color: #8a8a8a;
+	color: #000;
 }
 .navbar-inverse .nav > li > a,
 .navbar-inverse .nav .ison > a,
 .navbar-inverse .nav-collapse .dropdown-menu a:hover {
 	background: transparent;
-	color: #8a8a8a;
+	color: #000;
 	text-shadow: none;
 	box-shadow: none;
 }
 .navbar-inverse .nav li.dropdown > .dropdown-toggle .caret {
-	border-top-color: #8a8a8a;
-	border-bottom-color: #8a8a8a;
+	border-top-color: #000;
+	border-bottom-color: #AAA;
 }
 .navbar-inverse .nav li.dropdown > a:hover .caret {
-	border-top-color: #8a8a8a;
-	border-bottom-color: #8a8a8a;
+	border-top-color: #AAA;
+	border-bottom-color: #AAA;
 }
 .navbar-inverse .navbar-link:hover,
 .navbar-inverse .nav-collapse .nav > li > a:hover,
 .navbar-inverse .nav .ison > a:hover,
 .navbar-inverse .nav .ison > a:focus {
-	color: #363636;
+	color: #000;
 	background: transparent;
 	text-shadow: none;
 	box-shadow: none;
@@ -186,6 +263,23 @@ footer{
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
 .navbar-inverse .nav li.dropdown.ison > .dropdown-toggle,
 .navbar-inverse .nav li.dropdown.open.ison > .dropdown-toggle {
-	color: #363636;
+	color: #000;
 	background: transparent;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #000;
+}
+
+.barColor{
+	background-color: #AAA;
+	color: #000;
+}
+li{
+	color: #000;
+}
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
 }

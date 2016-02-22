@@ -276,7 +276,7 @@ $PG_mainbody .= "<p><b>"._("Processing changes...")."</b></p>";
 
 
 	// SQL QUERY
-	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".str_replace("'", "''", $title)."', `Date` = '".date('Y-m-d H:i:s',$oracambiata)."', `Author` = '".str_replace("'", "''", $auth_name)."', `Transcript` = '".str_replace("'", "''", $transcript)."', `Description` = '".str_replace("'", "''", $description)."', `Category_ID` = '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', `Key_Words` = '".str_replace("'", "''", $keywords)."', `IE_Name` = '".str_replace("'", "''", $_POST['ie_name'])."', `IE_Bio` = '".str_replace("'", "''", $_POST['ie_bio'])."', `IE_Title` = '".str_replace("'", "''", $_POST['ie_title'])."', `Last_Modified` = NOW() WHERE `Name` = '".$file."';";
+	$sql = "UPDATE `listen4_db0`.`Podcasts` SET `Title` = '".str_replace("'", "''", $title)."', `Date` = '".date('Y-m-d H:i:s',$oracambiata)."', `Author` = '".str_replace("'", "''", $auth_name)."', `Transcript` = '".str_replace("'", "''", $transcript)."', `Description` = '".str_replace("'", "''", $description)."', `Category_ID` = '".$categoryIDs[0].", ".$categoryIDs[1].", ".$categoryIDs[2]."', `Key_Words` = '".str_replace("'", "''", $keywords)."', `IE_Name` = '".str_replace("'", "''", $_POST['ie_name'])."', `IE_Bio` = '".str_replace("'", "''", $_POST['ie_bio'])."', `IE_Title` = '".str_replace("'", "''", $_POST['ie_title'])."', `Hook` = '".str_replace("'", "''", $_POST['hook'])."', `Last_Modified` = NOW() WHERE `Name` = '".$file."';";
 	$result = mysqli_query($conn, $sql);
 
 	if(!$result){
