@@ -4,6 +4,8 @@ body{
 
 
 
+
+
 /*Top Banner for all pages*/
 .title-box {
     background-image: url("../img/background_pattern.jpeg");
@@ -35,8 +37,15 @@ audio{
 	margin: 0 auto;/*ensured responsive images sized vertically are still centered*/
 }
 
+.pictureGrid{
+	text-align: center;
+}
 
 
+/* fix annoying side scroll bug */
+.row{
+	margin-right: 0px !important;
+}
 
 
 
@@ -54,6 +63,8 @@ audio{
 .ie_bio{
 	color: #FFF;
 	background-color: #AAA;
+	border-radius: 8px;
+	padding: 5px;
 }
 
 .pod_title{
@@ -74,8 +85,14 @@ audio{
 	font-style: italic;
 }
 
-
-
+#podcast_transcript{
+	max-height: 400px;
+	overflow-x: scroll;
+	margin-top: 15px;
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 4px;
+}
 
 
 /* Episode list styles */
@@ -138,7 +155,7 @@ footer{
 }
 
 .socialLogos p {
-    font-size: 33%;
+    font-size: .4em;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -148,7 +165,7 @@ footer{
 
 .socialLogos{
 	color: #000;
-    font-size: 200%;
+    font-size: 3em;
 }
 
 .socialLinks{
@@ -187,10 +204,17 @@ footer{
 
 
 
+.navbar-toggle .icon-bar{
+
+	color: #000 !important;
+}
 
 
+.navbar-brand{
 
-
+	margin-left: 6px;
+	color: #000 !important;
+}
 
 .navbar.navbar-inverse.navbar-fixed-top {
 	margin: 0;
@@ -207,7 +231,7 @@ footer{
 
 .navbar .nav {
 	margin: 5px;
-	color: #000;
+	color: #000 !important;
 }
 .navbar .nav > li {
 	margin-right: 10px;

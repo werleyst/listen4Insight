@@ -235,9 +235,9 @@ $contentmenuhome .= '><a href="?p=home">'._("Home").'</a></li>';
 
 
 //about button
-$contentmenuhome .= '<li';
-if (isset($_GET['p']) and $_GET['p'] == "about") $contentmenuhome .= ' class="ison"';
-$contentmenuhome .= '><a href="?p=about">'._("About").'</a></li>';
+// $contentmenuhome .= '<li';
+// if (isset($_GET['p']) and $_GET['p'] == "about") $contentmenuhome .= ' class="ison"';
+// $contentmenuhome .= '><a href="?p=about">'._("About").'</a></li>';
 
 
 //what is this button
@@ -273,7 +273,7 @@ if ($categoriesenabled == "yes") { //if categories are enabled
 
 	$contentmenuarchive .= '
 		<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._("Archive").' <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._("Where Can I Listen").' <b class="caret"></b></a>
 					<ul class="dropdown-menu">';
 			
 
@@ -295,14 +295,14 @@ if ($categoriesenabled == "yes") { //if categories are enabled
 			
 	 $contentmenuarchive .= '
 	 <li class="divider"></li>
-	 <li><a href="?p=archive&amp;cat=all">'._("All Episodes").'</a></li>
+	 <li><a href="?p=archive&amp;cat=all">'._("Creativity and Innovation").'</a></li>
 	 </ul></li>';
 
 
 } else {
 $contentmenuarchive = '<li';
 if (isset($_GET['p']) and $_GET['p'] == "archive") $contentmenuarchive .= ' class="active"';
-$contentmenuarchive .= '><a href="?p=archive">'._("All Episodes").'</a></li>';
+$contentmenuarchive .= '><a href="?p=archive">'._("Creativity and Innovation").'</a></li>';
 }
  
  

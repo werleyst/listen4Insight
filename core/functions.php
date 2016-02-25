@@ -494,7 +494,7 @@ function showPodcastEpisodes($all,$category) {
 							//$resulting_episodes .= '<div class="row-fluid">';
 							$resulting_episodes .= '<div class="episode">';
 						}
-						$resulting_episodes .= '<div class="col-lg-4 col-md-6 episodebox">'; //open the single episode DIV
+						$resulting_episodes .= '<div class="col-lg-4 col-sm-6 episodebox">'; //open the single episode DIV
 					}
 
 					$resulting_episodes .= '<div class="top-half-of-episode">';
@@ -724,7 +724,7 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 
 					// ======================= Interviewee Info =====================
 
-					$resulting_episodes .= '<div class="col-sm-5 col-lg-4 col-lg-offset-1 ie_info">';
+					$resulting_episodes .= '<div class="col-sm-7 col-lg-6 col-lg-offset-1 ie_info">';
 
 
 					$resulting_episodes .= '<div class="row"><div class="col-xs-8 col-xs-offset-2 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 ie_photo_wrapper">';
@@ -759,7 +759,7 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 
 					// ======================= Podcast Info =====================
 
-					$resulting_episodes .= '<div class="col-sm-7 col-lg-6 pod_info">';
+					$resulting_episodes .= '<div class="col-sm-5 col-lg-4 pod_info">';
 
 
 					////Title
