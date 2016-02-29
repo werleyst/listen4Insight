@@ -56,6 +56,8 @@ if (isset($_GET['p'])) {
 			//CATEGORIES
 			if (isset($_GET['cat']) AND $_GET['cat'] == "all") {
 
+					$PG_mainbody .= '<h1>All Episodes</h1>';
+
 					//show all episodes - no categories distinction
 					$PG_mainbody .= showPodcastEpisodes(1,NULL); 
 			} 
