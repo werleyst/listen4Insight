@@ -2,10 +2,8 @@
 
 
 //picture grid and text
-$PG_mainbody .= '<div class"row homeText"><div class="col-md-8 pictureGrid"><img src="images\pictureGrid.jpg" class="img-responsive" alt="Picture Grid"></div><br/>';
-$PG_mainbody .= '<div class="col-md-4 homeText"><p>Welcome to Listen4Insight, the landing page for a compilation of podcasts on creativity, innovation, and leadership.
-These podcasts are conducted by the Lockheed Martin Leadership Institute engineernig students in conjunction with Miamideas, an initiative to connect and highlight ongoing efforts across Miami University\'s campus in Oxford, Ohio during its "Year of Creativity and Innovation".
- Listen4Insight knows across the country, there are thousands of people that use innovative thinking every day, we are simply creating a home for these ideas to live, grow, and be shared.</p></div></div>';
+$PG_mainbody .= '<div class="row homeText"><div class="col-md-8 pictureGrid"><img src="images/pictureGrid.jpg" class="img-responsive" alt="Picture Grid"></div><br/>';
+$PG_mainbody .= '<div class="col-md-4 homeText"><p>Welcome to Listen4Insight---a compilation of podcasts on creativity, innovation, and leadership. These podcasts are conducted by the Lockheed Martin Leadership Institute engineering students at Miami University in Oxford, Ohio.  Listen4Insight was developed in conjunction with Miamideas, a campus-wide initiative inspiring creativity and innovation. We know there are many people that use innovative thinking every day. Listen4Insight creates a home for these ideas to live, grow, and be shared.</p></div></div>';
 
 
 //// This is the part of the homepage that shows the tiles

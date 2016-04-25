@@ -273,7 +273,7 @@ if ($categoriesenabled == "yes") { //if categories are enabled
 
 	$contentmenuarchive .= '
 		<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._("Where Can I Listen").' <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">'._("Where Can I Listen?").' <b class="caret"></b></a>
 					<ul class="dropdown-menu">';
 			
 

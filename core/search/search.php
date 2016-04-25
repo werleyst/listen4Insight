@@ -87,10 +87,12 @@ if(!isset($_REQUEST['s']) || !isset($_REQUEST['p']) || strtolower($_GET['p'])!="
 	}
 
 
+
 	// Process Results of Query
 	if (mysqli_num_rows($result) > 0) {
     // output data of each row
 
+		$resulting_episodes = '<div class="podcast_list">';
 
 
 	    while($row = mysqli_fetch_assoc($result)) {
@@ -266,6 +268,8 @@ if(!isset($_REQUEST['s']) || !isset($_REQUEST['p']) || strtolower($_GET['p'])!="
 
 	        	//$PG_mainbody .=  '<div><a href="?name='.$row['Name'].'">'.$row['Title'].'</a></div>';
 	    }
+
+	    $resulting_episodes .= "</div>";
 
 	    $PG_mainbody .= $resulting_episodes;
 

@@ -330,7 +330,7 @@ function displaySocialNetworkButtons($fullURL,$text_title,$fb,$tw,$gp) {
 	//TWITTER Button
 	if ($tw == TRUE) {
 		$construct_output.= '
-		<a href="https://twitter.com/share" class="twitter-share-button" data-url="'.$fullURL.'" data-text="'.$text_title.'" data-hashtags="Listen4Insight">Tweet</a>
+		<a href="https://twitter.com/share" class="twitter-share-button" data-url="'.$fullURL.'&amp;pk_campaign=tw&amp;pk_kwd=genFrWbLnk" data-text="'.$text_title.'" data-hashtags="Listen4Insight">Tweet</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		';
 	}
@@ -422,6 +422,8 @@ function showPodcastEpisodes($all,$category) {
 			$minC = 0;
 		}
 
+		$finalOutputEpisodes .= '<div class="podcast_list">';
+
 		// Loop through each file in the media directory
 		foreach ($fileNamesList as $singleFileName) {
 
@@ -444,6 +446,7 @@ function showPodcastEpisodes($all,$category) {
 				////If episode is supported and has a related xml db, and if it's not set to a future date OR if it's set for a future date but you are logged in as admin
 				if (($thisPodcastEpisode[0]==TRUE AND !publishInFuture($thisPodcastEpisode[1])) OR ($thisPodcastEpisode[0]==TRUE AND publishInFuture($thisPodcastEpisode[1]) AND isUserLogged())) { 
 
+				
 					////Parse XML data related to the episode 
 					// NB. Function parseXMLepisodeData returns: [0] episode title, [1] short description, [2] long description, [3] image associated, [4] iTunes keywords, [5] Explicit language,[6] Author's name,[7] Author's email,[8] PG category 1, [9] PG category 2, [10] PG category 3, [11] file_info_size, [12] file_info_duration, [13] file_info_bitrate, [14] file_info_frequency, [15] interviewee name, [16] interviewee bio
 					$thisPodcastEpisodeData = parseXMLepisodeData($thisPodcastEpisode[2]);
@@ -482,20 +485,8 @@ function showPodcastEpisodes($all,$category) {
 					$hook = $row['Hook'];
 
 
-					
-					//Theme engine PG version >= 2.0
-					if (useNewThemeEngine($theme_path)) {
-						//episodes per line in some themes (e.g. bootstrap)
-						$numberOfEpisodesPerLine = 2; 
-						//If the current episode number is multiple of $numberOfEpisodesPerLine
-						if ($episodesCounter % $numberOfEpisodesPerLine != 0 OR $episodesCounter == count($fileNamesList)) {
-							//open div with class row-fluid (theme based on bootstrap)
-							//N.B. row-fluid is a CSS class for a div containing 1 or more episodes
-							//$resulting_episodes .= '<div class="row-fluid">';
-							$resulting_episodes .= '<div class="episode">';
-						}
-						$resulting_episodes .= '<div class="col-lg-4 col-sm-6 episodebox">'; //open the single episode DIV
-					}
+
+					$resulting_episodes .= '<div class="col-lg-4 col-sm-6 episodebox">'; //open the single episode DIV
 
 					$resulting_episodes .= '<div class="top-half-of-episode">';
 
@@ -536,6 +527,9 @@ function showPodcastEpisodes($all,$category) {
 					$resulting_episodes .= '</div>';
 
 
+					$resulting_episodes .= '<div class="clearfix"></div>'; // clears the columns in the top half
+
+
 
 					////Date
 					// $resulting_episodes .= '<p class="episode_date">';
@@ -571,7 +565,7 @@ function showPodcastEpisodes($all,$category) {
 
 					////Playes: audio (flash/html5) and video (html5), for supported files and browsers
 					//if audio and video streaming is enabled in PG options
-					if ($enablestreaming=="yes" AND !detectMobileDevice()) { 
+					if ($enablestreaming=="yes") { 
 						$resulting_episodes .= showStreamingPlayers ($thisPodcastEpisode[5],$thisPodcastEpisode[3],$url,$upload_dir,$episodesCounter);
 					}
 					$isvideo = FALSE; //RESET isvideo for next episode
@@ -592,11 +586,18 @@ function showPodcastEpisodes($all,$category) {
 					//Close the single episode DIV
 					$resulting_episodes .= "</div>";
 					//Close div with class row-fluid (theme based on bootstrap). Theme engine >= 2.0
-					if (useNewThemeEngine($theme_path) AND $episodesCounter % $numberOfEpisodesPerLine != 0 OR 		$episodesCounter == count($fileNamesList)) { 
-						$resulting_episodes .= "</div>"; //close class row-fluid (bootstrap)
-					}
+					
+					
+					
+					
 
 					$episodesCounter++; //increment counter
+					
+					// To be the lcose of the row div for counting episodes
+					//if( $episodesCounter % 3 == 0){
+					//	$resulting_episodes .= '</div>';
+					//	$resulting_episodes .= '</div>';
+					//}
 
 					
 					
@@ -611,6 +612,14 @@ function showPodcastEpisodes($all,$category) {
 			} //END - Else if this episode is shown in this page, or no limitation in $max_recent 
 
 		} // END - Loop through each file in the media directory
+
+		$finalOutputEpisodes .= '</div>'; // end podcast list container
+		
+		//if($episodesCounter % 3 != 0){
+		//	// fix the row end
+		//	$resulting_episodes .= '</div>';
+		//	$resulting_episodes .= '</div>';
+		//}
 
 	} // END - If media directory contains files
 
@@ -727,7 +736,7 @@ function showSingleEpisode($singleEpisode,$justTitle) {
 					$resulting_episodes .= '<div class="col-sm-7 col-lg-6 col-lg-offset-1 ie_info">';
 
 
-					$resulting_episodes .= '<div class="row"><div class="col-xs-8 col-xs-offset-2 col-sm-12 col-sm-offset-0 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 ie_photo_wrapper">';
+					$resulting_episodes .= '<div class="row"><div class="col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 ie_photo_wrapper">';
 
 						if (file_exists($absoluteurl.$img_dir.$thisPodcastEpisode[5].'.jpg')) {
 							$resulting_episodes .= '<img class="episode_image img-responsive" src="'.$url.$img_dir.$thisPodcastEpisode[5].'.jpg" alt="'.$thisPodcastEpisodeData[0].'" />';
@@ -1202,17 +1211,17 @@ function showStreamingPlayers($filenameWithoutExtension,$podcast_filetype,$url,$
 	
 	$playersOutput = "";
 	
-	$browserAudioVideoSupport = detectModernBrowser();
+	//$browserAudioVideoSupport = detectModernBrowser();
 	
 	//// AUDIO PLAYER (MP3)
-		if ($browserAudioVideoSupport[0] == TRUE AND $podcast_filetype=="mp3") { //if browser supports HTML5
+		//if ($podcast_filetype=="mp3") { // originally had $browserAudioVideoSupport[0] == TRUE AND  //if browser supports HTML5
 		$showplayercode =	'<audio style="width:80%;" controls preload="none">
-			  <source src="'.$url.$upload_dir.$filenameWithoutExtension.'.mp3" type="audio/mpeg">
+			  <source src="'.$url.$upload_dir.$filenameWithoutExtension.'.mp3" type="audio/mp3">
 			'._("Your browser does not support the audio player").'
 			</audio>';
 			$playersOutput .= ''.$showplayercode.'<br />'; 
 
-		} 
+		//} 
 		// Flash Player disabled from version 2.5
 		/* 
 		else { //if no support for HTML5, then flash player just for mp3
